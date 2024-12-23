@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('nome');
             $table->date('data_nascimento');
-            $table->string('email');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->boolean('tema')->nullable();
             $table->string('foto')->nullable();
             $table->string('telefone');
