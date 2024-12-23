@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento');
             $table->string('email');
             $table->boolean('tema')->nullable();
-            $table->integer('foto')->nullable();
+            $table->string('foto')->nullable();
             $table->string('telefone');
         });
     }

@@ -17,3 +17,4 @@ use App\Http\Controllers\CompromissosController;
 
 Route::get('/', [UsersController::class, 'index']);
 Route::post('/compromissos', [CompromissosController::class, 'store']);
+
