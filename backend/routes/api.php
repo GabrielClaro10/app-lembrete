@@ -24,20 +24,9 @@ Route::group(['middleware' => 'api'], function () {
         return response()->json(['message' => 'App Lembrar Mais', 'status' => 'Connected']);
     });
 
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
 });
-
-
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('/compromissos', [CompromissosController::class, 'store']);
-
-Route::get('/users', [UsersController::class, 'index']);
-Route::post('/users', [UsersController::class, 'store']);
-*/
