@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/user_service.dart';
-import 'package:lembra_mais/esqueceuSenha.dart';
 import 'package:lembra_mais/login.dart';
 import 'package:flutter/gestures.dart';
 
