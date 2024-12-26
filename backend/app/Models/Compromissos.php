@@ -14,7 +14,6 @@ class Compromissos extends Model
         'local',
         'data',
         'repetirAlarme',
-        'hora',
         'descricao',
         'notificacao',
         'status',

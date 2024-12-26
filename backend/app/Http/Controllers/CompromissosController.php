@@ -6,6 +6,12 @@ use App\Models\Compromissos;
 use Illuminate\Http\Request;
 
 class CompromissosController extends Controller {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     
     public function index()
     {
@@ -16,11 +22,15 @@ class CompromissosController extends Controller {
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'localizacao' => 'required|string',
-            'categoria' => 'required|string',
+
+            'tipoCompromisso' => 'required|string',
+            'local' => 'required|string',
             'data' => 'required|date',
-            'hora' => 'required|string',
+            'repetirAlarme' => 'required|bool',
             'descricao' => 'required|string',
+            'notificacao' => 'required|int',
+            'status' => 'required|string',
+            'obs' => 'required|text',
         ]);
 
         // Criação do compromisso
@@ -39,11 +49,14 @@ class CompromissosController extends Controller {
     {
         // Validação dos dados
         $validatedData = $request->validate([
-            'localizacao' => 'string',
-            'categoria' => 'string',
+            'tipoCompromisso' => 'string',
+            'local' => 'string',
             'data' => 'date',
-            'hora' => 'string',
+            'repetirAlarme' => 'bool',
             'descricao' => 'string',
+            'notificacao' => 'int',
+            'status' => 'string',
+            'obs' => 'text',
         ]);
 
         // Atualiza os campos

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lembra_mais/esqueceuSenha.dart';
 import 'package:lembra_mais/cadastrarUser.dart';
 import 'package:lembra_mais/home.dart';
+import '../services/user_service.dart';
 
 class Login extends StatelessWidget {
   @override
