@@ -19,11 +19,11 @@ class CreateCompromissosTable extends Migration
             $table->string('tipoCompromisso');
             $table->string('local');
             $table->date('data');
-            $table->boolean('repetirAlarme');
-            $table->text('descricao');
+            $table->integer('repetirAlarme');
+            $table->string('descricao');
             $table->integer('notificacao');
             $table->string('status');
-            $table->text('obs');
+            $table->string('obs');
             $table->date('idade');
 
 

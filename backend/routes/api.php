@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompromissosController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
 
@@ -31,4 +32,5 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('me', [AuthController::class, 'me']);
 
     Route::resource('compromissos', CompromissosController::class)->except(['create','edit']);
+    Route::resource('categoria', CategoriaController::class)->except(['create','edit']);
 });

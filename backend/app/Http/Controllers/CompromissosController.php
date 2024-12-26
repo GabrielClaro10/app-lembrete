@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Compromissos;
 use Illuminate\Http\Request;
 
+
 class CompromissosController extends Controller {
 
 
@@ -26,11 +27,13 @@ class CompromissosController extends Controller {
             'tipoCompromisso' => 'required|string',
             'local' => 'required|string',
             'data' => 'required|date',
-            'repetirAlarme' => 'required|bool',
+            'repetirAlarme' => 'required|int',
             'descricao' => 'required|string',
             'notificacao' => 'required|int',
             'status' => 'required|string',
-            'obs' => 'required|text',
+            'obs' => 'required|string',
+            'id_users' => 'required|int',
+            'id_categoria' => 'required|int',
         ]);
 
         // Criação do compromisso
@@ -40,24 +43,28 @@ class CompromissosController extends Controller {
         return response()->json(['message' => 'Compromisso criado com sucesso!', 'data' => $compromisso], 201);
     }
 
-    public function show(Compromissos $compromissos)
+    public function show($id)
     {
-        return response()->json($compromissos);
+        $compromisso = Compromissos::findOrFail($id); 
+        return response()->json($compromisso);
     }
+    
 
-    public function update(Request $request, Compromissos $compromissos)
+    public function update(Request $request, $id)
     {
         // Validação dos dados
         $validatedData = $request->validate([
             'tipoCompromisso' => 'string',
             'local' => 'string',
             'data' => 'date',
-            'repetirAlarme' => 'bool',
+            'repetirAlarme' => 'int',
             'descricao' => 'string',
             'notificacao' => 'int',
             'status' => 'string',
-            'obs' => 'text',
+            'obs' => 'string',
         ]);
+
+        $compromissos = Compromissos::findOrFail($id);
 
         // Atualiza os campos
         $compromissos->update($validatedData);
@@ -65,8 +72,10 @@ class CompromissosController extends Controller {
         return response()->json(['message' => 'Compromisso atualizado com sucesso!', 'data' => $compromissos]);
     }
 
-    public function destroy(Compromissos $compromissos)
+    public function destroy($id)
     {
+        $compromissos = Compromissos::findOrFail($id); 
+
         // Deleta o compromisso
         $compromissos->delete();
 

@@ -14,7 +14,9 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+            $categoria = Categoria::all();
+            return response()->json($categoria);
+        
     }
 
     /**
@@ -35,7 +37,18 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+
+            'nome' => 'required|string',
+            'status' => 'required|string',
+            'created_at' => 'required|date',
+        ]);
+
+        // Criação do categoria
+        $categoria = Categoria::create($validatedData);
+
+        // Resposta de sucesso
+        return response()->json(['message' => 'Categoria criado com sucesso!', 'data' => $categoria], 201);
     }
 
     /**
@@ -44,9 +57,10 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id); 
+        return response()->json($categoria);
     }
 
     /**
@@ -67,9 +81,21 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        // Validação dos dados
+        $validatedData = $request->validate([
+            'nome' => 'string',
+            'updated_at' => 'string',
+            'status' => 'string',
+        ]);
+
+        $categoria = Categoria::findOrFail($id);
+
+        // Atualiza os campos
+        $categoria->update($validatedData);
+
+        return response()->json(['message' => 'Categoria atualizado com sucesso!', 'data' => $categoria]);
     }
 
     /**
@@ -78,8 +104,13 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id); 
+
+        // Deleta o compromisso
+        $categoria->delete();
+
+        return response()->json(['message' => 'Categoria deletado com sucesso!']);
     }
 }

@@ -18,6 +18,8 @@ class Compromissos extends Model
         'notificacao',
         'status',
         'obs',
-        'idade'
+        'idade',
+        'id_users',
+        'id_categoria',
     ];
 }

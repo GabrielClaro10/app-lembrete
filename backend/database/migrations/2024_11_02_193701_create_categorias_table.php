@@ -17,7 +17,7 @@ class CreateCategoriasTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nome');
-            $table->boolean('ativo');
+            $table->sting('status');
         });
     }
 
