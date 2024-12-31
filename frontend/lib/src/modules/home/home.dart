@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lembra_mais/src/pages/cadastrarCompromissos.dart';
+import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastrarCompromissos.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:lembra_mais/src/pages/detalhesCompromissos.dart';
-import 'package:lembra_mais/src/pages/lembretes.dart';
-import 'package:lembra_mais/src/pages/perfilUsuario.dart';
-import 'package:lembra_mais/src/pages/cadastroSeguro.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
+import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
+import 'package:lembra_mais/src/modules/cadastroSeguro/cadastroSeguro.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
