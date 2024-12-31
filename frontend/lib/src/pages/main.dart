@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import '../modules/login/login.dart'; // Certifique-se de que login.dart está no mesmo diretório ou ajuste o caminho.
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import '../modules/login/login.dart';
+import '../modules/login/login_binding.dart'; // Importe o LoginBinding
 
-void main() {
+void main() async {
+  await GetStorage.init();
+
   runApp(const MyApp());
 }
 
@@ -10,9 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Aplicativo GB', // Adicione um título para o aplicativo
+    return GetMaterialApp(
+      title: 'Aplicativo GB',
+      initialBinding:
+          LoginBinding(), // Registra as dependências ao iniciar o app
       home: Login(), // Defina a página de login como home
+      debugShowCheckedModeBanner: false,
     );
   }
 }

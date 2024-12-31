@@ -7,7 +7,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/api/login"),
+        Uri.parse("http://192.168.200.100:8000/api/login"),
         body: {"email": email, "password": password},
       );
 
