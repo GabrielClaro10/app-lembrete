@@ -5,6 +5,8 @@ import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromisso
 import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
 import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
 import 'package:lembra_mais/src/modules/cadastroSeguro/cadastroSeguro.dart';
+import 'package:lembra_mais/src/modules/home/home_controller.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -155,9 +157,15 @@ class _HomeState extends State<Home> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  InkWell(
+                    onTap: () {
+                      controller.;
+                    },
+                  )
                   Icon(
                     Icons.exit_to_app,
                     color: Color(0xFF34495E),
+                    
                   ),
                   SizedBox(width: 20),
                   Text(

@@ -12,17 +12,16 @@ class LoginController extends GetxController {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  final box = GetStorage();
+  final box = GetStorage('lembrarMais');
 
   RxBool showPassword = false.obs;
 
   void login() async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       auth = await repository.login(email.text, password.text);
-      // ignore: deprecated_member_use
-      if (!auth.isNull) {
-        box.write('auth', auth);
-        print(box.read('auth'));
+      if (auth.tokenType!.isNotEmpty) {
+        box.write('auth', auth.toJson());
+        Get.offAllNamed('/home');
       }
     }
   }
