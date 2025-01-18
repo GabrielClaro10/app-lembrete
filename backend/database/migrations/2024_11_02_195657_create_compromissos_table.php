@@ -18,13 +18,12 @@ class CreateCompromissosTable extends Migration
             $table->timestamps();
             $table->string('tipoCompromisso');
             $table->string('local');
-            $table->date('data');
+            $table->string('data');
             $table->integer('repetirAlarme');
             $table->string('descricao');
-            $table->integer('notificacao');
+            $table->string('notificacao');
             $table->string('status');
             $table->string('obs');
-            $table->date('idade');
 
 
             $table->unsignedBigInteger('id_users');

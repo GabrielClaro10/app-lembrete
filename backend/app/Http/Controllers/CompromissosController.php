@@ -26,10 +26,10 @@ class CompromissosController extends Controller {
 
             'tipoCompromisso' => 'required|string',
             'local' => 'required|string',
-            'data' => 'required|date',
+            'data' => 'required|string',
             'repetirAlarme' => 'required|int',
             'descricao' => 'required|string',
-            'notificacao' => 'required|int',
+            'notificacao' => 'required|string',
             'status' => 'required|string',
             'obs' => 'required|string',
             'id_users' => 'required|int',
@@ -56,10 +56,10 @@ class CompromissosController extends Controller {
         $validatedData = $request->validate([
             'tipoCompromisso' => 'string',
             'local' => 'string',
-            'data' => 'date',
+            'data' => 'string',
             'repetirAlarme' => 'int',
             'descricao' => 'string',
-            'notificacao' => 'int',
+            'notificacao' => 'string',
             'status' => 'string',
             'obs' => 'string',
         ]);

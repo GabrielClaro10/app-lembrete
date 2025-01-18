@@ -41,7 +41,7 @@ class CategoriaController extends Controller
 
             'nome' => 'required|string',
             'status' => 'required|string',
-            'created_at' => 'required|date',
+            'id_users' => 'required|int',
         ]);
 
         // Criação do categoria

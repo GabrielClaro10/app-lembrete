@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_binding.dart';
 import 'package:lembra_mais/src/modules/login/login_controller.dart';
 import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastrarUser.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
 
 class Login extends GetView<LoginController> {
   @override
@@ -162,11 +163,8 @@ class Login extends GetView<LoginController> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CadastrarUser()),
-                            );
+                            Get.to(() => CadastrarUser(),
+                                binding: CadastrousersBinding());
                           },
                       ),
                     ],

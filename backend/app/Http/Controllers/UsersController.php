@@ -15,9 +15,11 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+
+        
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'data_nascimento' => 'required|date',
+            'data_nascimento' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'telefone' => 'required|string|max:15',
             'tema' => 'required|string|max:50',

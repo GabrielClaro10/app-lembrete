@@ -12,7 +12,7 @@ class LoginController extends GetxController {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  final box = GetStorage('lembrarMais');
+  final box = GetStorage();
 
   RxBool showPassword = false.obs;
 

@@ -35,7 +35,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'nome' => 'required|string|max:255',
-            'data_nascimento' => 'required|date',
+            'data_nascimento' => 'required|string|max:15',
             'telefone' => 'required|string|max:15',
             'tema' => 'nullable|integer|between:0,255',
             'foto' => 'nullable|string|max:255',

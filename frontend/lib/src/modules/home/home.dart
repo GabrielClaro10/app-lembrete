@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastrarCompromissos.dart';
+import 'package:get/get.dart';
+import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria.dart';
+import 'package:lembra_mais/src/modules/home/home_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
@@ -16,6 +18,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,14 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/CadastroCompromissos');
+        },
+        child: Icon(Icons.add),
+        backgroundColor: const Color(0xFF34495E),
+        foregroundColor: Colors.white,
       ),
       endDrawer: Drawer(
         child: Column(
@@ -114,7 +126,7 @@ class _HomeState extends State<Home> {
                       Text(
                         'Senhas',
                         style: TextStyle(fontSize: 14),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -142,7 +154,30 @@ class _HomeState extends State<Home> {
                       Text(
                         'Perfil',
                         style: TextStyle(fontSize: 14),
-                      )
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Divider(),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/CadastroCategoria');
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 20),
+                      Icon(
+                        Icons.person,
+                        color: Color(0xFF34495E),
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        'Cadastrar Categoria',
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ],
                   ),
                 ),
@@ -150,21 +185,26 @@ class _HomeState extends State<Home> {
                 const Divider(),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.exit_to_app,
-                    color: Color(0xFF34495E),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Sair',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: GestureDetector(
+                onTap: () {
+                  controller.boxclear();
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Color(0xFF34495E),
+                    ),
+                    SizedBox(width: 20),
+                    Text(
+                      'Sair',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -319,61 +359,25 @@ class _HomeState extends State<Home> {
             ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8),
               children: const <Widget>[
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      'Trabalho',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xff34495e),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Lembretes relacionados a trabalho'),
-                      ],
-                    ),
-                    trailing: Icon(Icons.folder),
+                ListTile(
+                  title: Text(
+                    'Trabalho',
+                    style: TextStyle(fontSize: 20),
                   ),
+                  subtitle: Text('9 compromissos'),
                 ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      'Remédios',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xff34495e),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Lembretes relacionados a remédio'),
-                      ],
-                    ),
-                    trailing: Icon(Icons.priority_high),
+                ListTile(
+                  title: Text(
+                    'Pessoal',
+                    style: TextStyle(fontSize: 20),
                   ),
+                  subtitle: Text('3 compromissos'),
                 ),
               ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const Cadastrarcompromissos()),
-          );
-        },
-        child: const Icon(Icons.add, color: Colors.white),
-        backgroundColor: const Color(0xFF34495E),
       ),
     );
   }

@@ -11,7 +11,7 @@ class Categoria extends Model
 
     protected $fillable = [
         'nome',
-        'created_at',
         'status',
+        'id_users',
     ];
 }
