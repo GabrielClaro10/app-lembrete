@@ -17,8 +17,12 @@ class CreateCategoriasTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nome');
-            $table->sting('status');
+            $table->string('status');
             
+
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             
         });

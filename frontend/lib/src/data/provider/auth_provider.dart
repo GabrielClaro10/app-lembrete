@@ -103,6 +103,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> registerCategoria(
     String nome,
     String status,
+    int userId,
   ) async {
     try {
       final response = await http.post(
@@ -114,6 +115,8 @@ class AuthApiClient {
         body: {
           "nome": nome,
           "status": status,
+          "userId": userId
+              .toString(), // Ajuste: passe o userId diretamente como número
         },
       );
 

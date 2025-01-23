@@ -7,10 +7,9 @@ class CadastrocategoriaRepository {
   Future<CadastroCategoria> registerCompromissos(
     String nome,
     String status,
+    int userId,
   ) async {
-    return CadastroCategoria.fromJson(await apiClient.registerCategoria(
-      nome,
-      status,
-    ));
+    return CadastroCategoria.fromJson(
+        await apiClient.registerCategoria(nome, status, userId));
   }
 }

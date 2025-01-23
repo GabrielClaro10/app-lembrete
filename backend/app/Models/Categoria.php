@@ -12,6 +12,6 @@ class Categoria extends Model
     protected $fillable = [
         'nome',
         'status',
-        'id_users',
+        'user_id',
     ];
 }

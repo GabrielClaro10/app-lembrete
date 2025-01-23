@@ -18,11 +18,11 @@ class Auth {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.user != null) {
-      data['user'] = this.user!.toJson();
+      data['user'] = user!.toJson();
     }
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_in'] = this.expiresIn;
+    data['access_token'] = accessToken;
+    data['token_type'] = tokenType;
+    data['expires_in'] = expiresIn;
     return data;
   }
 }

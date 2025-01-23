@@ -4,6 +4,7 @@ class CadastroCategoria {
   String? updatedAt;
   String? nome;
   String? status;
+  int? userId;
 
   CadastroCategoria({
     this.id,
@@ -11,6 +12,7 @@ class CadastroCategoria {
     this.updatedAt,
     this.nome,
     this.status,
+    this.userId,
   });
 
   CadastroCategoria.fromJson(Map<String, dynamic> json) {
@@ -19,15 +21,17 @@ class CadastroCategoria {
     updatedAt = json['updated_at'];
     nome = json['nome'];
     status = json['status'];
+    userId = json['user_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['nome'] = this.nome;
-    data['status'] = this.status;
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['nome'] = nome;
+    data['status'] = status;
+    data['user_id'] = userId;
     return data;
   }
 }
