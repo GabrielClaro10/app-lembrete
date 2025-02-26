@@ -194,25 +194,31 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                 ),
                 const SizedBox(height: 20),
                 Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.all(8),
-                    children: const <Widget>[
-                      Card(
-                        child: ListTile(
-                          title: Text(
-                            'Google',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xff34495e),
-                              fontWeight: FontWeight.bold,
+                  child: Obx(() => ListView.builder(
+                        itemCount: controller.listCategorias.length,
+                        itemBuilder: (context, index) {
+                          final categoria = controller.listCategorias[index];
+                          return Card(
+                            child: ListTile(
+                              title: Text(
+                                categoria.nome ?? "Sem nome",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff34495e),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  controller.listCategorias.removeAt(index);
+                                },
+                              ),
                             ),
-                          ),
-                          trailing: Icon(Icons.close),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                          );
+                        },
+                      )),
+                )
               ],
             ),
           ),

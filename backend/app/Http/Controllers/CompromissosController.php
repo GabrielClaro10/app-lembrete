@@ -24,10 +24,8 @@ class CompromissosController extends Controller {
     {
         $validatedData = $request->validate([
 
-            'tipoCompromisso' => 'required|string',
             'local' => 'required|string',
             'data' => 'required|string',
-            'repetirAlarme' => 'required|int',
             'descricao' => 'required|string',
             'notificacao' => 'required|string',
             'status' => 'required|string',
@@ -38,6 +36,7 @@ class CompromissosController extends Controller {
 
         // Criação do compromisso
         $compromisso = Compromissos::create($validatedData);
+
 
         // Resposta de sucesso
         return response()->json(['message' => 'Compromisso criado com sucesso!', 'data' => $compromisso], 201);
@@ -54,10 +53,8 @@ class CompromissosController extends Controller {
     {
         // Validação dos dados
         $validatedData = $request->validate([
-            'tipoCompromisso' => 'string',
             'local' => 'string',
             'data' => 'string',
-            'repetirAlarme' => 'int',
             'descricao' => 'string',
             'notificacao' => 'string',
             'status' => 'string',

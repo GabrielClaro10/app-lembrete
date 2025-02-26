@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria.dart';
 import 'package:lembra_mais/src/modules/home/home_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';

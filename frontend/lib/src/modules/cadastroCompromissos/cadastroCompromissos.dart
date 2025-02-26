@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class Cadastrocompromissos
-    extends GetView<CadastrocompromissosControllerController> {
-  const Cadastrocompromissos({super.key});
+    extends GetView<CadastroCompromissosControllerController> {
+  Cadastrocompromissos({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -164,18 +165,20 @@ class Cadastrocompromissos
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Obx(() {
-                    return DropdownButton<String>(
-                      value:
-                          controller.tipoCompromisso.value, // O valor reativo
-                      onChanged: (value) {
-                        controller.updateCompromisso(
-                            value!); // Atualiza o valor no controlador
+                    return DropdownButton<CadastroCategoria>(
+                      hint: const Text("Selecione uma categoria"),
+                      value: controller.categoriaSelecionada.value,
+                      onChanged: (CadastroCategoria? novaCategoria) {
+                        if (novaCategoria != null) {
+                          controller.setCatSelecionada(novaCategoria);
+                        }
                       },
-                      items: ['Reunião', 'Almoço', 'Consulta', 'Outro']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                      items: controller.listCategorias
+                          .map<DropdownMenuItem<CadastroCategoria>>(
+                              (CadastroCategoria categoria) {
+                        return DropdownMenuItem<CadastroCategoria>(
+                          value: categoria,
+                          child: Text(categoria.nome!),
                         );
                       }).toList(),
                     );
@@ -280,25 +283,35 @@ class Cadastrocompromissos
                   children: <Widget>[
                     const Padding(
                       padding: EdgeInsets.only(left: 16),
-                    ),
-                    const Text(
-                      'Repetir Alarme ?',
-                      style: TextStyle(
-                        fontSize: 16,
+                      child: Text(
+                        'Repetir Alarme ?',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                     const Spacer(),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: Switch(
-                        key: ValueKey<bool>(controller.repetirAlarme.value),
-                        activeColor: const Color(0xFF34495E),
-                        value: controller.repetirAlarme.value,
-                        onChanged: (bool value) {
-                          controller.repetir(value);
-                        },
-                      ),
-                    ),
+                    Obx(() => Row(
+                          children: [
+                            const SizedBox(width: 8),
+                            ChoiceChip(
+                              label: Text(controller.repetirAlarme.value
+                                  ? "Sim"
+                                  : "Não"),
+                              selected: controller.repetirAlarme.value,
+                              onSelected: (bool selected) {
+                                controller.repetir(selected);
+                              },
+                              selectedColor: Colors.blue,
+                              labelStyle: TextStyle(
+                                color: controller.repetirAlarme.value
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              elevation: 2,
+                            ),
+                          ],
+                        )),
                   ],
                 ),
                 const SizedBox(height: 20),

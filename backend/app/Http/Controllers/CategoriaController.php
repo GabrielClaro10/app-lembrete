@@ -12,9 +12,16 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-            $categoria = Categoria::all();
+            $user = auth()->user();
+
+            if(!$user){
+                return response()->json(['erro' => 'Usuário não autenticado'], 401);
+            }
+
+            $categoria = Categoria::where('user_id', $user->id)->get();
+
             return response()->json($categoria);
         
     }

@@ -1,8 +1,13 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:lembra_mais/src/data/model/auth_model.dart';
+
 class AuthApiClient {
   final http.Client httpClient = http.Client();
+
+  final box = GetStorage();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
@@ -60,31 +65,34 @@ class AuthApiClient {
   }
 
   Future<Map<String, dynamic>> registerCompromissos(
-    String tipoCompromisso,
     String local,
     String data,
-    bool repetirAlarme,
     String descricao,
     String notificacao,
     String? status,
     String? obs,
+    int idUsers,
+    int idCategoria,
   ) async {
     try {
+      String? token = Auth.fromJson(box.read('auth')).accessToken;
+
+      if (token == null) {
+        throw Exception("Token não encontrado.");
+      }
+
       final response = await http.post(
         Uri.parse("http://192.168.200.100:8000/api/compromissos"),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Accept": "application/json",
-        },
+        headers: {"Authorization": "Bearer $token"},
         body: {
-          "tipoCompromisso": tipoCompromisso,
           "local": local,
           "data": data,
-          "repetirAlarme": repetirAlarme,
           "descricao": descricao,
           "notificacao": notificacao,
           "status": status,
-          "obs": obs
+          "obs": obs,
+          "id_users": idUsers.toString(),
+          "id_categoria": idCategoria.toString(),
         },
       );
 
@@ -115,8 +123,7 @@ class AuthApiClient {
         body: {
           "nome": nome,
           "status": status,
-          "userId": userId
-              .toString(), // Ajuste: passe o userId diretamente como número
+          "user_id": userId.toString(),
         },
       );
 

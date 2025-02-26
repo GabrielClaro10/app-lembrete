@@ -2,63 +2,64 @@ class CadastroCompromissos {
   int? id;
   String? createdAt;
   String? updatedAt;
-  String? tipoCompromisso;
   String? local;
   String? data;
-  bool? repetirAlarme;
   String? descricao;
   String? notificacao;
   String? status;
   String? obs;
+  int? idUsers;
+  int? idCategoria;
 
   CadastroCompromissos({
     this.id,
     this.createdAt,
     this.updatedAt,
-    this.tipoCompromisso,
     this.local,
     this.data,
-    this.repetirAlarme,
     this.descricao,
     this.notificacao,
     this.status,
     this.obs,
+    this.idUsers,
+    this.idCategoria,
   });
 
-  factory CadastroCompromissos.fromJson(Map<String, dynamic> json) {
-    return CadastroCompromissos(
-      id: json['id'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      tipoCompromisso: json['tipoCompromisso'],
-      local: json['local'],
-      data: json['data'],
-      repetirAlarme: json['repetirAlarme'],
-      descricao: json['descricao'],
-      notificacao: json['notificacao'],
-      status: json['status'],
-      obs: json['obs'],
-    );
+  CadastroCompromissos.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    local = json['local'];
+    data = json['data'];
+    notificacao = json['notificacao'];
+    status = json['status'];
+    obs = json['obs'];
+    idUsers = json['id_users'] != null ? json['id_users'] as int : null;
+    idCategoria =
+        json['id_categoria'] != null ? json['id_categoria'] as int : null;
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-      'tipoCompromisso': tipoCompromisso,
-      'local': local,
-      'data': data,
-      'repetirAlarme': repetirAlarme,
-      'descricao': descricao,
-      'notificacao': notificacao,
-      'status': status,
-      'obs': obs,
-    };
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['local'] = local;
+    data['notificacao'] = notificacao;
+    data['status'] = status;
+    data['obs'] = obs;
+    data['id_users'] = idUsers;
+    data['id_categoria'] = idCategoria;
+    return data;
   }
 
   @override
-  String toString() {
-    return 'CadastroCompromissos{id: $id, createdAt: $createdAt, updatedAt: $updatedAt, tipoCompromisso: $tipoCompromisso, local: $local, data: $data, repetirAlarme: $repetirAlarme, descricao: $descricao, notificacao: $notificacao, status: $status, obs: $obs}';
-  }
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CadastroCompromissos &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

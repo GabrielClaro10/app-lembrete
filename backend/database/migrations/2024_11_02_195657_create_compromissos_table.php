@@ -16,10 +16,8 @@ class CreateCompromissosTable extends Migration
         Schema::create('compromissos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('tipoCompromisso');
             $table->string('local');
             $table->string('data');
-            $table->integer('repetirAlarme');
             $table->string('descricao');
             $table->string('notificacao');
             $table->string('status');

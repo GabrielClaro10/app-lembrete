@@ -10,10 +10,8 @@ class Compromissos extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tipoCompromisso',
         'local',
         'data',
-        'repetirAlarme',
         'descricao',
         'notificacao',
         'status',

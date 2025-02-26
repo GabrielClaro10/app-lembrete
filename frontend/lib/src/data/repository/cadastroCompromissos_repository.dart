@@ -5,23 +5,17 @@ class CadastrocompromissosRepository {
   final AuthApiClient apiClient = AuthApiClient();
 
   Future<CadastroCompromissos> registerCompromissos(
-    String tipoCompromisso,
     String local,
     String data,
-    bool repetirAlarme,
     String descricao,
     String notificacao,
     String? status,
     String? obs,
+    int idUsers,
+    int idCategoria,
   ) async {
-    return CadastroCompromissos.fromJson(await apiClient.registerCompromissos(
-        tipoCompromisso,
-        local,
-        data,
-        repetirAlarme,
-        descricao,
-        notificacao,
-        status,
-        obs));
+    Map<String, dynamic> response = await apiClient.registerCompromissos(
+        local, data, descricao, notificacao, status, obs, idUsers, idCategoria);
+    return CadastroCompromissos.fromJson(response);
   }
 }

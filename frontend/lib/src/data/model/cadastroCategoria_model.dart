@@ -21,11 +21,11 @@ class CadastroCategoria {
     updatedAt = json['updated_at'];
     nome = json['nome'];
     status = json['status'];
-    userId = json['user_id'];
+    userId = json['user_id'] != null ? json['user_id'] as int : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = {};
     data['id'] = id;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
@@ -34,4 +34,14 @@ class CadastroCategoria {
     data['user_id'] = userId;
     return data;
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CadastroCategoria &&
+          runtimeType == other.runtimeType &&
+          id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
