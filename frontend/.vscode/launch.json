@@ -8,21 +8,21 @@
             "name": "frontend",
             "request": "launch",
             "type": "dart",
-            "program": "lib/src/pages/main.dart"
+            "program": "lib/main.dart"
         },
         {
             "name": "frontend (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "program": "lib/src/pages/main.dart"
+            "program": "lib/main.dart"
         },
         {
             "name": "frontend (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "program": "lib/src/pages/main.dart"
+            "program": "lib/main.dart"
         }
     ]
 }

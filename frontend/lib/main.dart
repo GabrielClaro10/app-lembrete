@@ -6,10 +6,17 @@ import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria_bind
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos.dart';
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_binding.dart';
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_binding.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos_binding.dart';
 import 'package:lembra_mais/src/modules/home/home.dart';
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
-import '../modules/login/login.dart';
-import '../modules/login/login_binding.dart'; // Importe o LoginBinding
+import 'package:lembra_mais/src/modules/home/home_binding.dart';
+import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
+import 'package:lembra_mais/src/modules/lembretes/lembretes_binding.dart';
+import 'package:lembra_mais/src/modules/login/login.dart';
+import 'package:lembra_mais/src/modules/login/login_binding.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_binding.dart';
 
 void main() async {
   await GetStorage.init();
@@ -51,8 +58,26 @@ class MyApp extends StatelessWidget {
           page: () => CadastroCategoria(),
           binding: CadastrocategoriaBinding(), // Associe o binding aqui
         ),
-        // Rota da tela de home
-        GetPage(name: '/home', page: () => const Home()),
+        GetPage(
+          name: '/lembretes',
+          page: () => Lembretes(),
+          binding: LembretesBinding(), // Associe o binding aqui
+        ),
+        GetPage(
+          name: '/DetalhesCompromissos',
+          page: () => const DetalhesCompromissos(),
+          binding: DetalhesCompromissosBinding(), // Associe o binding aqui
+        ),
+        GetPage(
+          name: '/home',
+          page: () => const Home(),
+          binding: HomeBinding(), // Associe o binding aqui
+        ),
+        GetPage(
+          name: '/perfilUsuario',
+          page: () => Perfilusuario(),
+          binding: PerfilusuarioBinding(), // Associe o binding aqui
+        )
       ],
     );
   }

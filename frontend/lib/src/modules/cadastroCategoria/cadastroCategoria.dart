@@ -143,7 +143,7 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Cadastro Categoria',
+                    'Cadastrar Tipo de Compromisso',
                     style: TextStyle(
                       fontSize: 24,
                     ),

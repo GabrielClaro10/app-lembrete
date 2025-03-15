@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/modules/lembretes/lembretes_controller.dart';
 
-class Lembretes extends StatelessWidget {
+class Lembretes extends GetView<LembretesController> {
   const Lembretes({super.key});
 
   @override
@@ -189,13 +192,27 @@ class Lembretes extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Expanded(
-                child: ListView(
-                  children: const <Widget>[
-                    Card(
-                      child: ListTile(
+                child: Obx(() {
+                  if (controller.listCategorias.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView.builder(
+                    itemCount: controller.listCompromissos.length,
+                    itemBuilder: (context, index) {
+                      final compromissos = controller.listCompromissos[index];
+
+                      final categoria = controller.listCategorias.firstWhere(
+                        (categoria) => categoria.id == compromissos.idCategoria,
+                        orElse: () => CadastroCategoria(
+                            id: 0, nome: 'Categoria não encontrada'),
+                      );
+
+                      return Card(
+                        child: ListTile(
                           title: Text(
-                            'Trabalho',
-                            style: TextStyle(
+                            categoria.nome ?? "Sem nome",
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Color(0xff34495e),
                               fontWeight: FontWeight.bold,
@@ -204,63 +221,30 @@ class Lembretes extends StatelessWidget {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Data: 15 de junho de 2024'),
-                              SizedBox(height: 4),
-                              Text('Horas: 10:00 - 11:30'),
-                              SizedBox(height: 4),
-                              Text('Local: Sala de Reunião 3')
+                              Text(compromissos.data!.substring(0, 10)),
+                              const SizedBox(height: 4),
+                              Text(compromissos.data!
+                                  .substring(compromissos.data!.length - 5)),
+                              const SizedBox(height: 4),
+                              Text(compromissos.local ?? "Sem local"),
                             ],
                           ),
-                          trailing: Text('Reunião')),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Remédio',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xff34495e),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          trailing: const Text('Reunião'),
+                          onTap: () {
+                            Get.toNamed('/DetalhesCompromissos', arguments: {
+                              "id": compromissos.id,
+                              "categoria": categoria.nome,
+                              "data": compromissos.data,
+                              "local": compromissos.local,
+                              "descricao": compromissos.descricao,
+                              "obs": compromissos.obs,
+                            });
+                          },
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Data: Diariamente'),
-                            SizedBox(height: 4),
-                            Text('Horas: 12 - 12 horas'),
-                            SizedBox(height: 4),
-                            Text('Falta: 2 horas para o proximo remédio')
-                          ],
-                        ),
-                        trailing: Text('Losartana'),
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          'Médico',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Color(0xff34495e),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Data: 15 de junho de 2024'),
-                            SizedBox(height: 4),
-                            Text('Horas: 11:00'),
-                            SizedBox(height: 6),
-                            Text('Rua: Ayrton Senna, 1000')
-                          ],
-                        ),
-                        trailing: Text('Ortopedista'),
-                      ),
-                    )
-                  ],
-                ),
+                      );
+                    },
+                  );
+                }),
               ),
             ],
           ),

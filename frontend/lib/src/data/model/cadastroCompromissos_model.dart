@@ -34,9 +34,13 @@ class CadastroCompromissos {
     notificacao = json['notificacao'];
     status = json['status'];
     obs = json['obs'];
-    idUsers = json['id_users'] != null ? json['id_users'] as int : null;
-    idCategoria =
-        json['id_categoria'] != null ? json['id_categoria'] as int : null;
+    descricao = json['descricao'];
+    idUsers = json['id_users'] != null
+        ? int.tryParse(json['id_users'].toString())
+        : null;
+    idCategoria = json['id_categoria'] != null
+        ? int.tryParse(json['id_categoria'].toString())
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +52,7 @@ class CadastroCompromissos {
     data['notificacao'] = notificacao;
     data['status'] = status;
     data['obs'] = obs;
+    data['descricao'] = descricao;
     data['id_users'] = idUsers;
     data['id_categoria'] = idCategoria;
     return data;

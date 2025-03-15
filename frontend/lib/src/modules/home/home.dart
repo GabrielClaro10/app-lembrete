@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
 import 'package:lembra_mais/src/modules/home/home_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
-import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
-import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
-import 'package:lembra_mais/src/modules/cadastroSeguro/cadastroSeguro.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -78,12 +76,7 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Lembretes(),
-                      ),
-                    );
+                    Get.toNamed('/lembretes');
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -106,12 +99,7 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Cadastroseguro(),
-                      ),
-                    );
+                    Get.toNamed('/lembretes');
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -134,12 +122,7 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Perfilusuario(),
-                      ),
-                    );
+                    Get.toNamed('/perfilUsuario');
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -174,7 +157,7 @@ class _HomeState extends State<Home> {
                       ),
                       SizedBox(width: 20),
                       Text(
-                        'Cadastrar Categoria',
+                        'Cadastrar Tipo de Compromisso',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
@@ -215,36 +198,48 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 160,
-                  color: const Color(0xFF34495E),
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.only(left: 6, top: 6),
-                  child: const Text(
-                    'Lembretes Recentes',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
+            Stack(children: [
+              Container(
+                width: double.infinity,
+                height: 160,
+                color: const Color(0xFF34495E),
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.only(left: 6, top: 6),
+                child: const Text(
+                  'Lembretes Recentes',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 180,
-                  child: ListView(
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 180,
+                child: Obx(() {
+                  if (controller.listCompromissos.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  return ListView.builder(
+                    itemCount: controller.listCompromissos.length,
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.only(left: 8, top: 50),
-                    children: const <Widget>[
-                      Card(
+                    itemBuilder: (context, index) {
+                      final compromissos = controller.listCompromissos[index];
+                      final categoria = controller.listCategorias.firstWhere(
+                        (categoria) => categoria.id == compromissos.idCategoria,
+                        orElse: () => CadastroCategoria(
+                            id: 0, nome: 'Categoria não encontrada'),
+                      );
+
+                      return Card(
                         child: SizedBox(
                           width: 200,
                           child: ListTile(
                             title: Text(
-                              'Reunião',
-                              style: TextStyle(
+                              categoria.nome ?? "Sem nome",
+                              style: const TextStyle(
                                 fontSize: 20,
                                 color: Color(0xff34495e),
                                 fontWeight: FontWeight.bold,
@@ -253,38 +248,29 @@ class _HomeState extends State<Home> {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Hoje 16:00'),
-                                SizedBox(height: 4),
+                                Text(compromissos.data ?? "Sem data"),
+                                const SizedBox(height: 4),
+                                Text(compromissos.local ?? "Sem local"),
                               ],
                             ),
+                            onTap: () {
+                              Get.toNamed('/DetalhesCompromissos', arguments: {
+                                "id": compromissos.id,
+                                "categoria": categoria.nome,
+                                "data": compromissos.data,
+                                "local": compromissos.local,
+                                "descricao": compromissos.descricao,
+                                "obs": compromissos.obs,
+                              });
+                            },
                           ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Card(
-                        child: SizedBox(
-                          width: 200,
-                          child: ListTile(
-                            title: Text(
-                              'Academia',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff34495e),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [Text('hoje 19:00')],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                      );
+                    },
+                  );
+                }),
+              )
+            ]),
             const SizedBox(height: 20),
             TableCalendar(
               firstDay: DateTime.utc(2020, 1, 1),
@@ -322,7 +308,7 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Detalhescompromissos(),
+                      builder: (context) => const DetalhesCompromissos(),
                     ),
                   );
                 },
@@ -348,32 +334,6 @@ class _HomeState extends State<Home> {
                   trailing: Icon(Icons.password_outlined),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Categorias',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const <Widget>[
-                ListTile(
-                  title: Text(
-                    'Trabalho',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  subtitle: Text('9 compromissos'),
-                ),
-                ListTile(
-                  title: Text(
-                    'Pessoal',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  subtitle: Text('3 compromissos'),
-                ),
-              ],
             ),
           ],
         ),

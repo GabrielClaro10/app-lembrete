@@ -5,8 +5,7 @@ class User {
   String? nome;
   String? dataNascimento;
   String? email;
-  Null tema;
-  Null foto;
+  String? foto;
   String? telefone;
 
   User(
@@ -16,7 +15,6 @@ class User {
       this.nome,
       this.dataNascimento,
       this.email,
-      this.tema,
       this.foto,
       this.telefone});
 
@@ -27,22 +25,20 @@ class User {
     nome = json['nome'];
     dataNascimento = json['data_nascimento'];
     email = json['email'];
-    tema = json['tema'];
     foto = json['foto'];
     telefone = json['telefone'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['nome'] = this.nome;
-    data['data_nascimento'] = this.dataNascimento;
-    data['email'] = this.email;
-    data['tema'] = this.tema;
-    data['foto'] = this.foto;
-    data['telefone'] = this.telefone;
+    data['id'] = id;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['nome'] = nome;
+    data['data_nascimento'] = dataNascimento;
+    data['email'] = email;
+    data['foto'] = foto;
+    data['telefone'] = telefone;
     return data;
   }
 }

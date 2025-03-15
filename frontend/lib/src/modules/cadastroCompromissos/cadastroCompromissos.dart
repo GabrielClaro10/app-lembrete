@@ -4,8 +4,7 @@ import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class Cadastrocompromissos
-    extends GetView<CadastroCompromissosControllerController> {
+class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
   Cadastrocompromissos({super.key});
 
   @override
@@ -166,7 +165,7 @@ class Cadastrocompromissos
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Obx(() {
                     return DropdownButton<CadastroCategoria>(
-                      hint: const Text("Selecione uma categoria"),
+                      hint: const Text("Selecione um tipo compromisso"),
                       value: controller.categoriaSelecionada.value,
                       onChanged: (CadastroCategoria? novaCategoria) {
                         if (novaCategoria != null) {
@@ -279,6 +278,7 @@ class Cadastrocompromissos
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
                 Row(
                   children: <Widget>[
                     const Padding(
@@ -318,21 +318,24 @@ class Cadastrocompromissos
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Obx(
-                    () => DropdownButton<String>(
-                      value: controller.notificacao.value,
-                      onChanged: (value) {
-                        controller.updatenotificacao(value!);
-                      },
-                      items: [
-                        'Todos os dias',
-                        'Uma vez por semana',
-                        'Uma vez no mês',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    () => Visibility(
+                      visible: controller.repetirAlarme.value,
+                      child: DropdownButton<String>(
+                        value: controller.notificacao.value,
+                        onChanged: (value) {
+                          controller.updatenotificacao(value!);
+                        },
+                        items: [
+                          'Todos os dias',
+                          'Uma vez por semana',
+                          'Uma vez no mês',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ),

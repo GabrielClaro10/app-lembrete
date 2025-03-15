@@ -37,7 +37,6 @@ class AuthController extends Controller
             'nome' => 'required|string|max:255',
             'data_nascimento' => 'required|string|max:15',
             'telefone' => 'required|string|max:15',
-            'tema' => 'nullable|integer|between:0,255',
             'foto' => 'nullable|string|max:255',
         ]);
 
@@ -51,7 +50,6 @@ class AuthController extends Controller
             'nome' => $request->nome,
             'data_nascimento' => $request->data_nascimento,
             'telefone' => $request->telefone,
-            'tema' => $request->tema, 
             'foto' => $request->foto, 
         ]);
 

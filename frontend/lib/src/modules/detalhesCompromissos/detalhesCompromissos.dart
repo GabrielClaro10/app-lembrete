@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos_controller.dart';
 
-class Detalhescompromissos extends StatelessWidget {
-  const Detalhescompromissos({super.key});
+class DetalhesCompromissos extends StatelessWidget {
+  const DetalhesCompromissos({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final detalhesController = Get.find<DetalhesCompromissosController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -136,6 +139,7 @@ class Detalhescompromissos extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 7,
@@ -155,95 +159,89 @@ class Detalhescompromissos extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Remedios',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
+              Obx(() => Text(
+                    "Tipo Compromisso: ${detalhesController.categoria}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  )),
               const SizedBox(height: 20),
               RichText(
-                  text: const TextSpan(
-                      text: 'Dosagem: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                    TextSpan(
-                        text: ' de 12 em 12 horas',
-                        style: TextStyle(
-                          color: Color(0xFF757575),
-                          fontSize: 14,
-                        ))
-                  ])),
+                text: TextSpan(
+                  text: 'Local: ',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    WidgetSpan(
+                      child: Obx(() => Text(
+                            detalhesController.local.value,
+                            style: const TextStyle(
+                              color: Color(0xFF757575),
+                              fontSize: 14,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 6),
               RichText(
-                  text: const TextSpan(
-                      text: 'Medicamento: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                    TextSpan(
-                        text: ' Atenolol',
-                        style: TextStyle(
-                          color: Color(0xFF757575),
-                          fontSize: 14,
-                        ))
-                  ])),
+                text: TextSpan(
+                  text: 'Data: ',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    WidgetSpan(
+                      child: Obx(() => Text(
+                            detalhesController.data.substring(0, 10),
+                            style: const TextStyle(
+                              color: Color(0xFF757575),
+                              fontSize: 14,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 6),
               RichText(
-                  text: const TextSpan(
-                      text: 'Quantidade: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                    TextSpan(
-                        text: ' 50 mg',
-                        style: TextStyle(
-                          color: Color(0xFF757575),
-                          fontSize: 14,
-                        ))
-                  ])),
-              const SizedBox(height: 6),
-              RichText(
-                  text: const TextSpan(
-                      text: 'Horário: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                    TextSpan(
-                        text: ' de 12 em 12 horas',
-                        style: TextStyle(
-                          color: Color(0xFF757575),
-                          fontSize: 14,
-                        ))
-                  ])),
-              const SizedBox(height: 6),
-              RichText(
-                  text: const TextSpan(
-                      text: 'Tempo: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: [
-                    TextSpan(
-                        text: ' 6 meses',
-                        style: TextStyle(
-                          color: Color(0xFF757575),
-                          fontSize: 14,
-                        ))
-                  ])),
+                text: TextSpan(
+                  text: 'Horas: ',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    WidgetSpan(
+                      child: Obx(() => Text(
+                            detalhesController.data.substring(10),
+                            style: const TextStyle(
+                              color: Color(0xFF757575),
+                              fontSize: 14,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Observação',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Obx(() => Text(
+                    detalhesController.obs.value,
+                  )),
               const SizedBox(height: 12),
               const Text(
                 'Descrição',
@@ -253,10 +251,9 @@ class Detalhescompromissos extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
-                'Lembretes para tomar medicamentos em horários específicos, renovação de receitas ou início de novos tratamentos. Podem incluir o nome do medicamento, a dosagem e a frequência.',
-                style: TextStyle(),
-              ),
+              Obx(() => Text(
+                    detalhesController.descricao.value,
+                  )),
             ],
           ),
         ),

@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +31,11 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+
+    Route::resource('user', UsersController::class)->except(['create', 'edit']);
+
+    
+
 
     Route::resource('compromissos', CompromissosController::class)->except(['create','edit']);
     Route::resource('categoria', CategoriaController::class)->except(['create','edit']);

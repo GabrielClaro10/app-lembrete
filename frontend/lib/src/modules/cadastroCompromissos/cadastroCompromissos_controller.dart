@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,7 +6,7 @@ import 'package:lembra_mais/src/data/model/cadastroCompromissos_model.dart';
 import 'package:lembra_mais/src/data/repository/cadastroCategoria_repository.dart';
 import 'package:lembra_mais/src/data/repository/cadastroCompromissos_repository.dart';
 
-class CadastroCompromissosControllerController extends GetxController {
+class CadastroCompromissosController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final repository = Get.find<CadastrocompromissosRepository>();
   final TextEditingController localController = TextEditingController();
@@ -48,8 +46,7 @@ class CadastroCompromissosControllerController extends GetxController {
         var authData = box.read('auth');
 
         if (authData != null) {
-          var decodedData =
-              authData is String ? jsonDecode(authData) : authData;
+          var decodedData = authData;
           var user = decodedData['user'];
 
           if (user != null && user['id'] != null) {
@@ -58,7 +55,7 @@ class CadastroCompromissosControllerController extends GetxController {
             int? idCategoriaSelecionada = categoriaSelecionada.value?.id;
 
             if (idCategoriaSelecionada == null) {
-              Get.snackbar("Erro", "Por favor, selecione uma categoria.");
+              print("Erro, Por favor, selecione uma categoria.");
               return;
             }
 
@@ -73,15 +70,16 @@ class CadastroCompromissosControllerController extends GetxController {
               idCategoriaSelecionada,
             );
 
-            Get.snackbar("Sucesso", "Compromisso criado com sucesso");
+            print("Sucesso, Compromisso criado com sucesso");
+            Get.toNamed('/lembretes');
           } else {
-            Get.snackbar("Erro", "Usuário não encontrado no auth.");
+            print("Erro, Usuário não encontrado no auth.");
           }
         } else {
-          Get.snackbar("Erro", "Usuário não autenticado.");
+          print("Erro, Usuário não autenticado.");
         }
       } catch (e) {
-        Get.snackbar("Erro", "Falha ao criar o compromisso: $e");
+        print("Erro ao criar o compromisso: ${e.toString()}");
       }
     }
   }
