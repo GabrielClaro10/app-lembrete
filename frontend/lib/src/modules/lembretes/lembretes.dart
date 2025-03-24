@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes_controller.dart';
 
 class Lembretes extends GetView<LembretesController> {
@@ -18,7 +19,7 @@ class Lembretes extends GetView<LembretesController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Get.offAllNamed('/home');
           },
         ),
         actions: <Widget>[
@@ -32,103 +33,7 @@ class Lembretes extends GetView<LembretesController> {
           ),
         ],
       ),
-      endDrawer: const Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                    ),
-                    SizedBox(width: 20),
-                    Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.file_copy,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Lembretes',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.password,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Senhas',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.person,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Perfil',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.exit_to_app,
-                    color: Color(0xFF34495E),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Sair',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      endDrawer: CustomDrawer(),
       backgroundColor: const Color(0xFF34495E),
       body: Center(
         child: Container(
@@ -195,6 +100,13 @@ class Lembretes extends GetView<LembretesController> {
                 child: Obx(() {
                   if (controller.listCategorias.isEmpty) {
                     return const Center(child: CircularProgressIndicator());
+                  }
+                  if (controller.listCompromissos.isEmpty) {
+                    return const Center(
+                        child: Text('Nenhum compromisso encontrado.',
+                            style: TextStyle(
+                              color: Colors.white,
+                            )));
                   }
 
                   return ListView.builder(

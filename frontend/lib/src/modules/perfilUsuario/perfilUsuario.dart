@@ -69,25 +69,6 @@ class Perfilusuario extends StatelessWidget {
                     );
                   }),
                   const SizedBox(height: 16),
-                  Row(
-                    children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.only(left: 16),
-                      ),
-                      const Text(
-                        'Mudar tema',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const Spacer(),
-                      Switch(
-                        value: false,
-                        onChanged: (bool value) {},
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.nomeController,
                     decoration: InputDecoration(

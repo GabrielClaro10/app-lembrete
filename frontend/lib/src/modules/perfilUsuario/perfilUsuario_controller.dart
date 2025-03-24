@@ -25,26 +25,20 @@ class PerfilUsuarioController extends GetxController {
     loadUserData();
   }
 
-  // Função que carrega os dados do usuário usando getUserDetails
   void loadUserData() async {
     try {
       isLoading.value = true;
 
-      // Chama o repositório para obter os dados do usuário
-      var user =
-          await authRepository.getUserDetails(); // Pega os detalhes do usuário
+      var user = await authRepository.getUserDetails();
 
-      print(user.id);
+      print('Usuário recebido: $user');
 
       if (user != null) {
-        // Atualiza as variáveis com os dados do usuário
         nome.value = user.nome ?? '';
         email.value = user.email ?? '';
         foto.value = user.foto ?? '';
         telefone.value = user.telefone ?? '';
         dataNascimento.value = user.dataNascimento ?? '';
-
-        // Preenche os controllers com os dados carregados
         nomeController.text = nome.value;
         telefoneController.text = telefone.value;
         dataNascimentoController.text = dataNascimento.value;
@@ -56,40 +50,33 @@ class PerfilUsuarioController extends GetxController {
     }
   }
 
-  // Função para atualizar os dados do usuário
   Future<void> updateUserData() async {
     if (!formKey.currentState!.validate()) return;
 
     isLoading.value = true;
 
     try {
-      // Chama o repositório para atualizar os dados do usuário
       var updatedUser = await authRepository.updateUser(
         nomeController.text,
         dataNascimentoController.text,
-        null, // Passando null para foto, pois você quer que a imagem seja deixada vazia
+        null,
         telefoneController.text,
       );
 
-      // Agora, buscamos os dados atualizados diretamente do getUserDetails
       var user = await authRepository.getUserDetails();
 
-      print(user);
-      // Atualiza os valores nas variáveis que controlam a interface
       nome.value = user.nome!;
       email.value = user.email!;
-      foto.value = ''; // Deixa a foto vazia
+      foto.value = '';
       telefone.value = user.telefone!;
       dataNascimento.value = user.dataNascimento!;
 
-      // Atualiza os campos do formulário
       nomeController.text = user.nome!;
       telefoneController.text = user.telefone!;
       dataNascimentoController.text = user.dataNascimento!;
 
       print("Sucesso! Dados atualizados com sucesso!");
 
-      // Chama loadUserData novamente para garantir que as informações mais recentes sejam carregadas
       loadUserData();
     } catch (e) {
       print("Erro ao atualizar dados: $e");

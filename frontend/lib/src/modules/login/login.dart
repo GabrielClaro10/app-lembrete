@@ -21,8 +21,8 @@ class Login extends GetView<LoginController> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
           ),
-          width: screenWidth * 0.9,
-          height: screenHeight * 0.8,
+          width: 400,
+          height: 600,
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -77,7 +77,6 @@ class Login extends GetView<LoginController> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextFormField(
                     validator: (value) {
-                      print(value?.length);
                       if (value!.isEmpty) {
                         return 'campo obrigatório.';
                       }
@@ -168,67 +167,6 @@ class Login extends GetView<LoginController> {
                           },
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 250,
-                    height: 55,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFe0e3e7),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.apple,
-                            color: Colors.black,
-                          ),
-                          Text(
-                            'Continue com Apple',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 250,
-                    height: 55,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFe0e3e7),
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.android,
-                          color: Colors.black,
-                        ),
-                        Text(
-                          'Continue com Google',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               ],

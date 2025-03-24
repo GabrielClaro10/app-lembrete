@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/home/home_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,17 +22,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Voltar',
-          style: TextStyle(color: Colors.white),
-        ),
         backgroundColor: const Color(0xFF34495E),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -52,146 +42,7 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(0xFF34495E),
         foregroundColor: Colors.white,
       ),
-      endDrawer: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                const SizedBox(height: 20),
-                const Row(
-                  children: [
-                    SizedBox(width: 20),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                    ),
-                    SizedBox(width: 20),
-                    Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                const Divider(),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/lembretes');
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20),
-                      Icon(
-                        Icons.file_copy,
-                        color: Color(0xFF34495E),
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        'Lembretes',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/lembretes');
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20),
-                      Icon(
-                        Icons.password,
-                        color: Color(0xFF34495E),
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        'Senhas',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/perfilUsuario');
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20),
-                      Icon(
-                        Icons.person,
-                        color: Color(0xFF34495E),
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        'Perfil',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/CadastroCategoria');
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20),
-                      Icon(
-                        Icons.person,
-                        color: Color(0xFF34495E),
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        'Cadastrar Tipo de Compromisso',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: GestureDetector(
-                onTap: () {
-                  controller.boxclear();
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.exit_to_app,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Sair',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      endDrawer: CustomDrawer(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -217,8 +68,17 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 180,
                 child: Obx(() {
-                  if (controller.listCompromissos.isEmpty) {
+                  if (controller.listCategorias.isEmpty) {
                     return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (controller.listCompromissos.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'Nenhum compromisso encontrado.',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
                   }
 
                   return ListView.builder(
@@ -230,7 +90,9 @@ class _HomeState extends State<Home> {
                       final categoria = controller.listCategorias.firstWhere(
                         (categoria) => categoria.id == compromissos.idCategoria,
                         orElse: () => CadastroCategoria(
-                            id: 0, nome: 'Categoria não encontrada'),
+                          id: 0,
+                          nome: 'Categoria não encontrada',
+                        ),
                       );
 
                       return Card(
@@ -284,6 +146,7 @@ class _HomeState extends State<Home> {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
+                controller.filtrarCompromissos(selectedDay);
               },
               headerStyle: const HeaderStyle(
                 formatButtonVisible: false,
@@ -302,39 +165,59 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 20),
-            Card(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DetalhesCompromissos(),
+            Obx(() {
+              if (controller.compromissosFiltrados.isEmpty) {
+                return const Center(
+                    child: Text('Nenhum compromisso para este dia'));
+              }
+
+              return ListView.builder(
+                shrinkWrap: true,
+                physics:
+                    NeverScrollableScrollPhysics(), // Evita conflito de scroll
+                itemCount: controller.compromissosFiltrados.length,
+                itemBuilder: (context, index) {
+                  final compromisso = controller.compromissosFiltrados[index];
+                  final categoria = controller.listCategorias.firstWhere(
+                    (categoria) => categoria.id == compromisso.idCategoria,
+                    orElse: () => CadastroCategoria(
+                        id: 0, nome: 'Categoria não encontrada'),
+                  );
+
+                  return Card(
+                    child: ListTile(
+                      title: Text(
+                        categoria.nome ?? "Sem nome",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff34495e),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(compromisso.data
+                              .toString()), // Ajuste conforme necessário
+                          SizedBox(height: 4),
+                          Text(compromisso.local ?? "Sem local"),
+                        ],
+                      ),
+                      onTap: () {
+                        Get.toNamed('/DetalhesCompromissos', arguments: {
+                          "id": compromisso.id,
+                          "categoria": categoria.nome,
+                          "data": compromisso.data,
+                          "local": compromisso.local,
+                          "descricao": compromisso.descricao,
+                          "obs": compromisso.obs,
+                        });
+                      },
                     ),
                   );
                 },
-                child: const ListTile(
-                  title: Text(
-                    'Reunião',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Color(0xff34495e),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Data: 23/06/2024'),
-                      SizedBox(height: 4),
-                      Text('Horas: 11:00'),
-                      SizedBox(height: 4),
-                      Text('Local: Rua JK, 1000'),
-                    ],
-                  ),
-                  trailing: Icon(Icons.password_outlined),
-                ),
-              ),
-            ),
+              );
+            }),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:lembra_mais/src/data/model/auth_model.dart';
+import 'package:lembra_mais/src/data/model/user_model.dart';
 
 class AuthApiClient {
   final http.Client httpClient = http.Client();
@@ -28,7 +29,7 @@ class AuthApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> register(
+  Future<Auth> register(
       String email,
       String password,
       String passwordConfirmation,
@@ -39,21 +40,31 @@ class AuthApiClient {
       final response = await http.post(
         Uri.parse("http://192.168.200.100:8000/api/register"),
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: {
+        body: json.encode({
           "email": email,
           "password": password,
           "password_confirmation": passwordConfirmation,
           "nome": nome,
           "data_nascimento": dataNascimento,
-          "telefone": telefone
-        },
+          "telefone": telefone,
+        }),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return json.decode(response.body);
+        final data = json.decode(response.body);
+
+        final user = User.fromJson(data['user']);
+
+        final auth = Auth(
+          user: user,
+          accessToken: data['access_token'],
+          tokenType: data['token_type'],
+          expiresIn: data['expires_in'],
+        );
+        return auth;
       } else {
         throw Exception(
             'Erro na solicitação: ${response.statusCode}, ${response.body}');

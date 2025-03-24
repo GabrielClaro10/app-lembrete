@@ -6,7 +6,7 @@ import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_controller.d
 class CadastrousersBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CadastrousersController>(() => CadastrousersController());
+    Get.lazyPut<CadastroUsersController>(() => CadastroUsersController());
     Get.lazyPut<AuthRepository>(() => AuthRepository());
     Get.lazyPut<AuthApiClient>(() => AuthApiClient());
   }

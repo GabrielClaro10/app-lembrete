@@ -5,12 +5,13 @@ import 'package:flutter/gestures.dart';
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class CadastrarUser extends GetView<CadastrousersController> {
+class CadastrarUser extends GetView<CadastroUsersController> {
   const CadastrarUser({super.key});
 
   @override
   Widget build(BuildContext context) {
     var maskFormatter = MaskTextInputFormatter(mask: '##/##/####');
+    var maskFormatterTel = MaskTextInputFormatter(mask: '(##) #####-####');
 
     return Scaffold(
       backgroundColor: const Color(0xFF34495E),
@@ -56,6 +57,7 @@ class CadastrarUser extends GetView<CadastrousersController> {
                         if (value!.isEmpty) {
                           return 'campo obrigatório.';
                         }
+                        return null;
                       },
                       controller: controller.nomeController,
                       decoration: InputDecoration(
@@ -89,8 +91,11 @@ class CadastrarUser extends GetView<CadastrousersController> {
                         if (value!.isEmpty) {
                           return 'campo obrigatório.';
                         }
+                        return null;
                       },
                       controller: controller.telefoneController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [maskFormatterTel],
                       decoration: InputDecoration(
                         labelText: 'Telefone',
                         border: OutlineInputBorder(
@@ -122,6 +127,7 @@ class CadastrarUser extends GetView<CadastrousersController> {
                         if (value!.isEmpty) {
                           return 'campo obrigatório.';
                         }
+                        return null;
                       },
                       controller: controller.dataNascimentoController,
                       keyboardType: TextInputType.number,
@@ -157,6 +163,7 @@ class CadastrarUser extends GetView<CadastrousersController> {
                         if (value!.isEmpty) {
                           return 'campo obrigatório.';
                         }
+                        return null;
                       },
                       controller: controller.emailController,
                       decoration: InputDecoration(

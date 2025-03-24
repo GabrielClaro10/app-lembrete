@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
-  Cadastrocompromissos({super.key});
+  const Cadastrocompromissos({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,103 +36,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
           ),
         ],
       ),
-      endDrawer: const Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                    ),
-                    SizedBox(width: 20),
-                    Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.file_copy,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Lembretes',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.password,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Senhas',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.person,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Perfil',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.exit_to_app,
-                    color: Color(0xFF34495E),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Sair',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      endDrawer: CustomDrawer(),
       backgroundColor: const Color(0xFF34495E),
       body: Center(
         child: Container(
@@ -187,6 +92,12 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Campo obrigatório';
+                      }
+                      return null;
+                    },
                     controller: controller.localController,
                     decoration: const InputDecoration(
                       labelText: 'Local',
@@ -204,17 +115,36 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                           width: 2,
                         ),
                       ),
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Campo obrigatório.';
+                      }
+                      if (value.length != 16) {
+                        return 'Preencha da data e horário.';
+                      }
+                      return null;
+                    },
                     controller: controller.dataController,
                     keyboardType: TextInputType.number,
                     inputFormatters: [maskFormatter],
                     decoration: const InputDecoration(
                       labelText: 'Selecione data',
+                      hintText: '21/10/2025 11:00',
                       prefixIcon: Icon(Icons.calendar_month),
                       border: InputBorder.none,
                       enabledBorder: UnderlineInputBorder(
@@ -229,12 +159,30 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                           width: 2,
                         ),
                       ),
+                      hintStyle: TextStyle(
+                        color: Color.fromARGB(255, 161, 163, 167),
+                      ),
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Campo obrigatório.';
+                      }
+                      return null;
+                    },
                     controller: controller.descricaoController,
                     decoration: const InputDecoration(
                       labelText: 'Descrição',
@@ -252,12 +200,27 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                           width: 2,
                         ),
                       ),
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Campo obrigatório';
+                      }
+                      return null;
+                    },
                     controller: controller.obsController,
                     decoration: const InputDecoration(
                       labelText: 'Observação',
@@ -274,6 +237,15 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                           color: Color(0xffe0e3e7),
                           width: 2,
                         ),
+                      ),
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      errorStyle: TextStyle(
+                        color: Colors.red,
                       ),
                     ),
                   ),

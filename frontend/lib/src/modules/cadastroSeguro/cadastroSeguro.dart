@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 
 class Cadastroseguro extends StatelessWidget {
   const Cadastroseguro({super.key});
@@ -29,103 +30,7 @@ class Cadastroseguro extends StatelessWidget {
           ),
         ],
       ),
-      endDrawer: const Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(width: 20),
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                    ),
-                    SizedBox(width: 20),
-                    Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.file_copy,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Lembretes',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.password,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Senhas',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.person,
-                      color: Color(0xFF34495E),
-                    ),
-                    SizedBox(width: 20),
-                    Text(
-                      'Perfil',
-                      style: TextStyle(fontSize: 14),
-                    )
-                  ],
-                ),
-                SizedBox(height: 20),
-                Divider(),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.exit_to_app,
-                    color: Color(0xFF34495E),
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Sair',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      endDrawer: CustomDrawer(),
       backgroundColor: const Color(0xFF34495E),
       body: Center(
         child: Container(

@@ -8,11 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
-
-
 class AuthController extends Controller
 {
-    
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
@@ -44,18 +41,25 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
+        // Criação do usuário
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'nome' => $request->nome,
             'data_nascimento' => $request->data_nascimento,
             'telefone' => $request->telefone,
-            'foto' => $request->foto, 
+            'foto' => $request->foto,
         ]);
+
+        // Gerar token para o novo usuário
+        $token = auth()->login($user);  // Login automático após criar o usuário
 
         return response()->json([
             'message' => 'Usuário criado com sucesso!',
-            'user' => $user
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
         ], 201);
     }
 

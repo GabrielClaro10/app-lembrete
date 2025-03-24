@@ -23,7 +23,7 @@ class CategoriaApiClient {
       );
 
       if (response.statusCode == 200) {
-        return jsonDecode(response.body); // Retorna o JSON já convertido
+        return jsonDecode(response.body);
       } else {
         throw Exception(
           'Erro na solicitação: ${response.statusCode}, ${response.body}',
@@ -35,7 +35,7 @@ class CategoriaApiClient {
     }
   }
 
-  Future<dynamic> deleteCategoria(int userId) async {
+  Future<dynamic> deleteCategoria(int categoriaId) async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -44,7 +44,7 @@ class CategoriaApiClient {
       }
 
       var response = await http.delete(
-        Uri.parse("http://192.168.200.100:8000/api/categoria/$userId"),
+        Uri.parse("http://192.168.200.100:8000/api/categoria/$categoriaId"),
         headers: {"Authorization": "Bearer $token"},
       );
 

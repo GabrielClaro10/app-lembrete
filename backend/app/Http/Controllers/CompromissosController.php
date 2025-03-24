@@ -16,7 +16,15 @@ class CompromissosController extends Controller {
     
     public function index()
     {
-        $compromissos = Compromissos::all();
+
+        $user = auth()->user();
+
+        if(!$user){
+            return response()->json(['erro' => 'Usuário não autenticado'], 401);
+        }
+
+        $compromissos = Compromissos::where('id_users', $user->id)->get();
+        
         return response()->json($compromissos);
     }
 

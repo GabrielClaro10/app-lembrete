@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
 import 'package:lembra_mais/src/data/model/cadastroCompromissos_model.dart';
 import 'package:lembra_mais/src/data/repository/cadastroCategoria_repository.dart';
@@ -38,6 +39,56 @@ class CadastroCompromissosController extends GetxController {
     notificacao.value = not;
   }
 
+  DateTime parseDate(String dateString) {
+    // Definindo o formato da data que você está recebendo
+    DateFormat format = DateFormat("dd/MM/yyyy HH:mm");
+
+    // Convertendo a string para DateTime
+    try {
+      return format.parse(dateString);
+    } catch (e) {
+      print("Erro ao parsear a data: $e");
+      return DateTime.now(); // Retorne a data atual em caso de erro
+    }
+  }
+
+  /* void scheduleDailyAlarm(DateTime scheduledTime, String message) {
+    NotificationService.scheduleDailyNotification(
+      0, // ID do alarme
+      'Lembrete diário', // Título da notificação
+      message, // Mensagem da notificação
+      scheduledTime, // Hora e data inicial
+    );
+  }
+
+  void scheduleWeeklyAlarm(DateTime nextWeek, String message) {
+    NotificationService.scheduleNotification(
+      1, // ID do alarme
+      'Lembrete semanal', // Título da notificação
+      message, // Mensagem da notificação
+      nextWeek, // Data e hora do alarme na próxima semana
+    );
+  }
+
+  void scheduleMonthlyAlarm(DateTime nextMonth, String message) {
+    NotificationService.scheduleNotification(
+      2, // ID do alarme
+      'Lembrete mensal', // Título da notificação
+      message, // Mensagem da notificação
+      nextMonth, // Data e hora do alarme no próximo mês
+    );
+  }
+
+  void testNotification() async {
+    DateTime now = DateTime.now();
+    await NotificationService.scheduleNotification(
+      0,
+      'Teste de Notificação',
+      'Essa é uma notificação de teste!',
+      now.add(Duration(seconds: 10)), // Exemplo: 10 segundos após agora
+    );
+  } */
+
   Future<void> createCompromissos() async {
     if (formKey.currentState!.validate()) {
       const String status = "ativo";
@@ -59,6 +110,7 @@ class CadastroCompromissosController extends GetxController {
               return;
             }
 
+            // Criação do compromisso
             await repository.registerCompromissos(
               localController.text,
               dataController.text,
@@ -71,6 +123,7 @@ class CadastroCompromissosController extends GetxController {
             );
 
             print("Sucesso, Compromisso criado com sucesso");
+
             Get.toNamed('/lembretes');
           } else {
             print("Erro, Usuário não encontrado no auth.");

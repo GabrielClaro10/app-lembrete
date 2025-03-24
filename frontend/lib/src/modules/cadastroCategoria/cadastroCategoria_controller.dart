@@ -65,4 +65,14 @@ class CadastrocategoriaController extends GetxController {
       Get.snackbar("Erro", "Falha ao buscar categorias: $e");
     }
   }
+
+  Future<void> deleteCategoria(int categoriaId) async {
+    try {
+      await repository.deleteCategoria(categoriaId);
+      listCategorias.removeWhere((categoria) => categoria.id == categoriaId);
+      Get.snackbar("Sucesso", "Categoria removida com sucesso");
+    } catch (e) {
+      Get.snackbar("Erro", "Falha ao remover categoria: $e");
+    }
+  }
 }

@@ -28,4 +28,8 @@ class CadastrocategoriaRepository {
 
     return list;
   }
+
+  Future<void> deleteCategoria(int categoriaId) async {
+    await categoriaApiClient.deleteCategoria(categoriaId);
+  }
 }

@@ -41,4 +41,9 @@ class User {
     data['telefone'] = telefone;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'UserModel(id: $id, nome: $nome, email: $email, foto: $foto, telefone: $telefone, dataNascimento: $dataNascimento)';
+  }
 }

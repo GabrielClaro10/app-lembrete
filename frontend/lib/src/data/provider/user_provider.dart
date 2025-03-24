@@ -42,7 +42,12 @@ class UserProvider {
       );
 
       if (response.statusCode == 200) {
-        return json.decode(response.body);
+        var responseData = json.decode(response.body);
+        if (responseData.containsKey("user")) {
+          return responseData["user"];
+        } else {
+          throw Exception("Chave 'user' não encontrada na resposta da API.");
+        }
       } else {
         throw Exception('Erro ao buscar detalhes: ${response.statusCode}');
       }
