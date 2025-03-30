@@ -75,11 +75,35 @@ class AuthApiClient {
     }
   }
 
+  Future<Map<String, dynamic>> esqueciSenha(String email) async {
+    try {
+      final response = await http.post(
+        Uri.parse("http://192.168.200.100:8000/api/esqueci-senha"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: json.encode({
+          "email": email,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception(
+            'Erro na solicitação: ${response.statusCode}, ${response.body}');
+      }
+    } catch (erro) {
+      print('Erro durante a recuperação de senha: $erro');
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> registerCompromissos(
     String local,
     String data,
     String descricao,
-    String notificacao,
     String? status,
     String? obs,
     int idUsers,
@@ -99,7 +123,6 @@ class AuthApiClient {
           "local": local,
           "data": data,
           "descricao": descricao,
-          "notificacao": notificacao,
           "status": status,
           "obs": obs,
           "id_users": idUsers.toString(),

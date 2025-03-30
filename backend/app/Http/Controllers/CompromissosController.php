@@ -35,7 +35,6 @@ class CompromissosController extends Controller {
             'local' => 'required|string',
             'data' => 'required|string',
             'descricao' => 'required|string',
-            'notificacao' => 'required|string',
             'status' => 'required|string',
             'obs' => 'required|string',
             'id_users' => 'required|int',
@@ -64,7 +63,6 @@ class CompromissosController extends Controller {
             'local' => 'string',
             'data' => 'string',
             'descricao' => 'string',
-            'notificacao' => 'string',
             'status' => 'string',
             'obs' => 'string',
         ]);

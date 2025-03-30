@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lembra_mais/src/data/repository/auth_repository.dart';
 
 class PerfilUsuarioController extends GetxController {
@@ -25,13 +28,51 @@ class PerfilUsuarioController extends GetxController {
     loadUserData();
   }
 
+  Future<void> pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      foto.value =
+          pickedFile.path; // Armazenando o caminho da imagem no controller
+    }
+  }
+
+  void showPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Galeria'),
+                onTap: () {
+                  pickImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Câmera'),
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void loadUserData() async {
     try {
       isLoading.value = true;
 
       var user = await authRepository.getUserDetails();
-
-      print('Usuário recebido: $user');
 
       if (user != null) {
         nome.value = user.nome ?? '';
@@ -59,7 +100,7 @@ class PerfilUsuarioController extends GetxController {
       var updatedUser = await authRepository.updateUser(
         nomeController.text,
         dataNascimentoController.text,
-        null,
+        foto.value,
         telefoneController.text,
       );
 
@@ -67,7 +108,7 @@ class PerfilUsuarioController extends GetxController {
 
       nome.value = user.nome!;
       email.value = user.email!;
-      foto.value = '';
+      foto.value = user.foto!;
       telefone.value = user.telefone!;
       dataNascimento.value = user.dataNascimento!;
 

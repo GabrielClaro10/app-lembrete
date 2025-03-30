@@ -8,7 +8,6 @@ use App\Http\Controllers\CompromissosController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PasswordController;
 
 
 /*
@@ -32,15 +31,10 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('esqueciSenha', [AuthController::class, 'esqueciSenha']); // Envia o e-mail com o token
+    Route::post('resetar-senha', [AuthController::class, 'resetarSenha']);
 
-    Route::resource('user', UsersController::class)->except(['create', 'edit']);
-
-
-    Route::post('password/forgot', [PasswordController::class, 'sendResetLinkEmail']); // Envia o link para resetar a senha
-    Route::post('password/reset', [PasswordController::class, 'reset']); // Processa a redefinição de senha
-
-
-    
+    Route::resource('user', UsersController::class)->except(['create', 'edit']);    
 
 
     Route::resource('compromissos', CompromissosController::class)->except(['create','edit']);

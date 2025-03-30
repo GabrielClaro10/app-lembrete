@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
 import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes_controller.dart';
@@ -53,10 +54,11 @@ class Lembretes extends GetView<LembretesController> {
                   ),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: controller.pesquisaFiltro,
+                  decoration: const InputDecoration(
                       hintText: 'Pesquise aqui',
                       prefixIcon: Icon(Icons.search),
                       border: InputBorder.none,
@@ -72,18 +74,99 @@ class Lembretes extends GetView<LembretesController> {
                           width: 2,
                         ),
                       )),
+                  onChanged: (value) {
+                    controller.filtrarCompromissos();
+                  },
                 ),
               ),
               const SizedBox(height: 20),
-              const Row(
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Filtrar por data'),
+              ),
+              const SizedBox(height: 10),
+              // Date range picker section
+              Row(
                 children: [
-                  Text('Filtrar por data'),
-                  SizedBox(width: 20),
-                  Icon(Icons.calendar_month, color: Color(0xFF34495E)),
-                  SizedBox(width: 20),
-                  Icon(Icons.calendar_month, color: Color(0xFF34495E)),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () async {
+                        DateTime? selectedStartDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (selectedStartDate != null) {
+                          controller.dataInicio.value = selectedStartDate;
+                          controller.filtrarCompromissos();
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Obx(() {
+                          return Text(
+                            controller.dataInicio.value == null
+                                ? 'Data Início'
+                                : DateFormat('dd/MM/yyyy')
+                                    .format(controller.dataInicio.value!),
+                            style: const TextStyle(fontSize: 16),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () async {
+                        DateTime? selectedEndDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (selectedEndDate != null) {
+                          controller.dataFim.value = selectedEndDate;
+                          controller.filtrarCompromissos();
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Obx(() {
+                          return Text(
+                            controller.dataFim.value == null
+                                ? 'Data Fim'
+                                : DateFormat('dd/MM/yyyy')
+                                    .format(controller.dataFim.value!),
+                            style: const TextStyle(fontSize: 16),
+                          );
+                        }),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  IconButton(
+                    onPressed: () {
+                      controller.dataInicio.value = null;
+                      controller.dataFim.value = null;
+                      controller.filtrarCompromissos();
+                    },
+                    icon: const Icon(Icons.clear, color: Colors.red),
+                  ),
                 ],
               ),
+
               const SizedBox(height: 20),
               Container(
                 alignment: Alignment.centerLeft,
@@ -110,9 +193,10 @@ class Lembretes extends GetView<LembretesController> {
                   }
 
                   return ListView.builder(
-                    itemCount: controller.listCompromissos.length,
+                    itemCount: controller.listCompromissosFiltrados.length,
                     itemBuilder: (context, index) {
-                      final compromissos = controller.listCompromissos[index];
+                      final compromissos =
+                          controller.listCompromissosFiltrados[index];
 
                       final categoria = controller.listCategorias.firstWhere(
                         (categoria) => categoria.id == compromissos.idCategoria,

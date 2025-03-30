@@ -51,4 +51,15 @@ class AuthRepository {
     var response = await userProvider.getUserDetails();
     return User.fromJson(response);
   }
+
+  // Novo método para recuperação de senha
+  Future<Map<String, dynamic>> esqueciSenha(String email) async {
+    try {
+      final result = await apiClient.esqueciSenha(email);
+      return result;
+    } catch (erro) {
+      print('Erro durante a recuperação de senha: $erro');
+      rethrow;
+    }
+  }
 }

@@ -67,9 +67,24 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                 ),
                 const SizedBox(height: 20),
                 Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
                   child: Obx(() {
-                    return DropdownButton<CadastroCategoria>(
+                    return DropdownButtonFormField<CadastroCategoria>(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xfff1f4f8),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.grey, width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      ),
                       hint: const Text("Selecione um tipo compromisso"),
                       value: controller.categoriaSelecionada.value,
                       onChanged: (CadastroCategoria? novaCategoria) {
@@ -85,6 +100,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                           child: Text(categoria.nome!),
                         );
                       }).toList(),
+                      isExpanded: true,
                     );
                   }),
                 ),
@@ -250,71 +266,18 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Row(
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.only(left: 16),
-                      child: Text(
-                        'Repetir Alarme ?',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Obx(() => Row(
-                          children: [
-                            const SizedBox(width: 8),
-                            ChoiceChip(
-                              label: Text(controller.repetirAlarme.value
-                                  ? "Sim"
-                                  : "Não"),
-                              selected: controller.repetirAlarme.value,
-                              onSelected: (bool selected) {
-                                controller.repetir(selected);
-                              },
-                              selectedColor: Colors.blue,
-                              labelStyle: TextStyle(
-                                color: controller.repetirAlarme.value
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                              elevation: 2,
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Obx(
-                    () => Visibility(
-                      visible: controller.repetirAlarme.value,
-                      child: DropdownButton<String>(
-                        value: controller.notificacao.value,
-                        onChanged: (value) {
-                          controller.updatenotificacao(value!);
-                        },
-                        items: [
-                          'Todos os dias',
-                          'Uma vez por semana',
-                          'Uma vez no mês',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: controller.createCompromissos,
                   child: const Text('Cadastrar compromisso'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF34495E),
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -12,14 +12,13 @@ class CadastrocompromissosRepository {
     String local,
     String data,
     String descricao,
-    String notificacao,
     String? status,
     String? obs,
     int idUsers,
     int idCategoria,
   ) async {
     Map<String, dynamic> response = await apiClient.registerCompromissos(
-        local, data, descricao, notificacao, status, obs, idUsers, idCategoria);
+        local, data, descricao, status, obs, idUsers, idCategoria);
 
     return CadastroCompromissos.fromJson(response['data']);
   }

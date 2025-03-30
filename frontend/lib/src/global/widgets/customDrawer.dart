@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:lembra_mais/src/modules/cadastroSeguro/cadastroSeguro.dart';
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
@@ -34,6 +33,27 @@ class CustomDrawer extends StatelessWidget {
                   Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
                 ],
               ),
+
+              const SizedBox(height: 20),
+              const Divider(),
+              const SizedBox(height: 20),
+
+              /// **Item 2: Senhas**
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('home');
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 20),
+                    Icon(Icons.home, color: Color(0xFF34495E)),
+                    SizedBox(width: 20),
+                    Text('home', style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 15),
               const Divider(),
               const SizedBox(height: 20),
@@ -49,30 +69,6 @@ class CustomDrawer extends StatelessWidget {
                     Icon(Icons.file_copy, color: Color(0xFF34495E)),
                     SizedBox(width: 20),
                     Text('Lembretes', style: TextStyle(fontSize: 14)),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Divider(),
-              const SizedBox(height: 20),
-
-              /// **Item 2: Senhas**
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Cadastroseguro(),
-                    ),
-                  );
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 20),
-                    Icon(Icons.password, color: Color(0xFF34495E)),
-                    SizedBox(width: 20),
-                    Text('Senhas', style: TextStyle(fontSize: 14)),
                   ],
                 ),
               ),

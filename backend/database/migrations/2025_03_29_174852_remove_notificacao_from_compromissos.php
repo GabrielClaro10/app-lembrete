@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableCompromissoNotificacao extends Migration
+class RemoveNotificacaoFromCompromissos extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterTableCompromissoNotificacao extends Migration
     public function up()
     {
         Schema::table('compromissos', function (Blueprint $table) {
-            $table->string('notificacao')->change();
+            $table->dropColumn('notificacao');
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableCompromissoNotificacao extends Migration
     public function down()
     {
         Schema::table('compromissos', function (Blueprint $table) {
-            $table->integer('notificacao')->change();
+            $table->string('notificacao');
         });
     }
 }

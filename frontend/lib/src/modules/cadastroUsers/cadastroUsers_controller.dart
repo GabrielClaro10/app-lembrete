@@ -18,14 +18,21 @@ class CadastroUsersController extends GetxController {
       TextEditingController();
   late User user;
   final box = GetStorage();
+  var isPasswordVisible = false.obs;
+  var isPasswordConfirmationVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  void togglepasswordConfirmationVisibility() {
+    isPasswordConfirmationVisible.value = !isPasswordConfirmationVisible.value;
+  }
 
   // Função de registro
   void register() async {
     if (formKey.currentState!.validate()) {
       try {
-        // Não precisa mais do GetStorage.init() se já foi inicializado no início do app
-
-        // Renomeei para authResponse para ficar mais claro que é o objeto Auth
         final Auth authResponse = await repository.register(
           emailController.text,
           passwordController.text,

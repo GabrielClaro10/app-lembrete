@@ -13,10 +13,8 @@ class Compromissos extends Model
         'local',
         'data',
         'descricao',
-        'notificacao',
         'status',
         'obs',
-        'idade',
         'id_users',
         'id_categoria',
     ];

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_controller.dart';
@@ -12,6 +14,7 @@ class Perfilusuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var maskFormatter = MaskTextInputFormatter(mask: '##/##/####');
+    var maskFormatterTel = MaskTextInputFormatter(mask: '(##) #####-####');
 
     return Scaffold(
       appBar: AppBar(
@@ -33,17 +36,25 @@ class Perfilusuario extends StatelessWidget {
                     return Row(
                       children: <Widget>[
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                controller.foto.value.isEmpty
-                                    ? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-                                    : controller.foto.value,
-                              ),
-                            ),
+                            Obx(() {
+                              // Usando controller.foto2 para mostrar a imagem selecionada
+                              return CircleAvatar(
+                                radius: 50,
+                                backgroundImage: controller.foto.value.isEmpty
+                                    ? const NetworkImage(
+                                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
+                                    : FileImage(File(controller.foto
+                                        .value)), // Usa a imagem selecionada
+                              );
+                            }),
                             const SizedBox(height: 12),
-                            const Text('Trocar foto'),
+                            TextButton(
+                              onPressed: () => controller.showPicker(
+                                  context), // Chama a função do controller
+                              child: const Text('Trocar Foto'),
+                            ),
                           ],
                         ),
                         const SizedBox(width: 20),
@@ -120,6 +131,7 @@ class Perfilusuario extends StatelessWidget {
                   const SizedBox(height: 20),
                   TextField(
                     controller: controller.telefoneController,
+                    inputFormatters: [maskFormatterTel],
                     decoration: InputDecoration(
                       labelText: 'Telefone',
                       border: OutlineInputBorder(

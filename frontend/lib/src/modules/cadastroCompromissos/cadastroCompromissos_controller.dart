@@ -14,7 +14,6 @@ class CadastroCompromissosController extends GetxController {
   final TextEditingController dataController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
   final TextEditingController obsController = TextEditingController();
-  RxString notificacao = 'Todos os dias'.obs;
   late CadastroCompromissos cadastroCompromissos;
   final repositoryCat = Get.find<CadastrocategoriaRepository>();
   final RxList<CadastroCategoria> listCategorias = <CadastroCategoria>[].obs;
@@ -35,59 +34,15 @@ class CadastroCompromissosController extends GetxController {
     repetirAlarme.value = value;
   }
 
-  void updatenotificacao(String not) {
-    notificacao.value = not;
-  }
-
   DateTime parseDate(String dateString) {
-    // Definindo o formato da data que você está recebendo
     DateFormat format = DateFormat("dd/MM/yyyy HH:mm");
-
-    // Convertendo a string para DateTime
     try {
       return format.parse(dateString);
     } catch (e) {
       print("Erro ao parsear a data: $e");
-      return DateTime.now(); // Retorne a data atual em caso de erro
+      return DateTime.now();
     }
   }
-
-  /* void scheduleDailyAlarm(DateTime scheduledTime, String message) {
-    NotificationService.scheduleDailyNotification(
-      0, // ID do alarme
-      'Lembrete diário', // Título da notificação
-      message, // Mensagem da notificação
-      scheduledTime, // Hora e data inicial
-    );
-  }
-
-  void scheduleWeeklyAlarm(DateTime nextWeek, String message) {
-    NotificationService.scheduleNotification(
-      1, // ID do alarme
-      'Lembrete semanal', // Título da notificação
-      message, // Mensagem da notificação
-      nextWeek, // Data e hora do alarme na próxima semana
-    );
-  }
-
-  void scheduleMonthlyAlarm(DateTime nextMonth, String message) {
-    NotificationService.scheduleNotification(
-      2, // ID do alarme
-      'Lembrete mensal', // Título da notificação
-      message, // Mensagem da notificação
-      nextMonth, // Data e hora do alarme no próximo mês
-    );
-  }
-
-  void testNotification() async {
-    DateTime now = DateTime.now();
-    await NotificationService.scheduleNotification(
-      0,
-      'Teste de Notificação',
-      'Essa é uma notificação de teste!',
-      now.add(Duration(seconds: 10)), // Exemplo: 10 segundos após agora
-    );
-  } */
 
   Future<void> createCompromissos() async {
     if (formKey.currentState!.validate()) {
@@ -109,13 +64,10 @@ class CadastroCompromissosController extends GetxController {
               print("Erro, Por favor, selecione uma categoria.");
               return;
             }
-
-            // Criação do compromisso
             await repository.registerCompromissos(
               localController.text,
               dataController.text,
               descricaoController.text,
-              notificacao.value,
               status,
               obsController.text,
               userId,

@@ -8,6 +8,8 @@ import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromisso
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_binding.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos_binding.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha_binding.dart';
 import 'package:lembra_mais/src/modules/home/home.dart';
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
 import 'package:lembra_mais/src/modules/home/home_binding.dart';
@@ -77,6 +79,11 @@ class MyApp extends StatelessWidget {
           name: '/perfilUsuario',
           page: () => Perfilusuario(),
           binding: PerfilusuarioBinding(), // Associe o binding aqui
+        ),
+        GetPage(
+          name: '/esqueceuSenha',
+          page: () => EsqueceuSenha(),
+          binding: EsqueceusenhaBinding(), // Associe o binding aqui
         )
       ],
     );

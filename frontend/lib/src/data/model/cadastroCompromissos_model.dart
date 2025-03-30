@@ -5,7 +5,6 @@ class CadastroCompromissos {
   String? local;
   String? data;
   String? descricao;
-  String? notificacao;
   String? status;
   String? obs;
   int? idUsers;
@@ -18,7 +17,6 @@ class CadastroCompromissos {
     this.local,
     this.data,
     this.descricao,
-    this.notificacao,
     this.status,
     this.obs,
     this.idUsers,
@@ -31,7 +29,6 @@ class CadastroCompromissos {
     updatedAt = json['updated_at'];
     local = json['local'];
     data = json['data'];
-    notificacao = json['notificacao'];
     status = json['status'];
     obs = json['obs'];
     descricao = json['descricao'];
@@ -49,7 +46,6 @@ class CadastroCompromissos {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['local'] = local;
-    data['notificacao'] = notificacao;
     data['status'] = status;
     data['obs'] = obs;
     data['descricao'] = descricao;

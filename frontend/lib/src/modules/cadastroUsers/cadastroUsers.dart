@@ -191,79 +191,96 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        print(value?.length);
-                        if (value!.isEmpty) {
-                          return 'campo obrigatório.';
-                        }
-                        if (value.length < 6) {
-                          return 'campo deve conter no minimo 6 caracteres.';
-                        }
-                        return null;
-                      },
-                      controller: controller.passwordController,
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                            color: Color(0xffe0e3e7),
-                            width: 2.0,
+                    child: Obx(() => TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Campo obrigatório.';
+                            }
+                            if (value.length < 6) {
+                              return 'Campo deve conter no mínimo 6 caracteres.';
+                            }
+                            return null;
+                          },
+                          controller: controller.passwordController,
+                          obscureText: !controller
+                              .isPasswordVisible.value, // Alterna visibilidade
+                          decoration: InputDecoration(
+                            labelText: 'Senha',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xffe0e3e7),
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xffe0e3e7),
+                                width: 2.0,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.all(16),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                controller.isPasswordVisible.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: controller.togglePasswordVisibility,
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                            color: Color(0xffe0e3e7),
-                            width: 2.0,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.all(16),
-                        suffixIcon: const Icon(Icons.visibility),
-                      ),
-                    ),
+                        )),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        print(value?.length);
-                        if (value!.isEmpty) {
-                          return 'campo obrigatório.';
-                        }
-                        if (value.length < 6) {
-                          return 'campo deve conter no minimo 6 caracteres.';
-                        }
-                        return null;
-                      },
-                      controller: controller.passwordConfirmationController,
-                      decoration: InputDecoration(
-                        labelText: 'Confirmar senha',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                            color: Color(0xffe0e3e7),
-                            width: 2.0,
+                    child: Obx(() => TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Campo obrigatório.';
+                            }
+                            if (value.length < 6) {
+                              return 'Campo deve conter no mínimo 6 caracteres.';
+                            }
+                            return null;
+                          },
+                          controller: controller.passwordConfirmationController,
+                          obscureText: !controller.isPasswordConfirmationVisible
+                              .value, // Alterna visibilidade
+                          decoration: InputDecoration(
+                            labelText: 'Confirmar senha',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xffe0e3e7),
+                                width: 2.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              borderSide: const BorderSide(
+                                color: Color(0xffe0e3e7),
+                                width: 2.0,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.all(16),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                controller.isPasswordConfirmationVisible.value
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: controller
+                                  .togglepasswordConfirmationVisibility,
+                            ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
-                          borderSide: const BorderSide(
-                            color: Color(0xffe0e3e7),
-                            width: 2.0,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.all(16),
-                        suffixIcon: const Icon(Icons.visibility),
-                      ),
-                    ),
+                        )),
                   ),
                   const SizedBox(height: 40),
                   ElevatedButton(

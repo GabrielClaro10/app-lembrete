@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha_controller.dart';
 
-class Esqueceusenha extends StatelessWidget {
-  const Esqueceusenha({super.key});
+class EsqueceuSenha extends GetView<EsqueceuSenhaController> {
+  const EsqueceuSenha({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,65 +37,77 @@ class Esqueceusenha extends StatelessWidget {
               ),
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Text(
-                'Esqueceu a Senha',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Iremos lhe enviar um e-mail com um link para redefinir sua senha, digite o e-mail associado a sua conta abaixo',
-                style: TextStyle(),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: const BorderSide(
-                        color: Color(0xffe0e3e7),
-                        width: 2.0,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: const BorderSide(
-                        color: Color(0xffe0e3e7),
-                        width: 2.0,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.all(16),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Esqueceu a Senha',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Enviar Email'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF34495E),
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 8),
+                const Text(
+                  'Iremos lhe enviar um e-mail com um link para redefinir sua senha, digite o e-mail associado a sua conta abaixo',
+                  style: TextStyle(),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'campo obrigatório.';
+                      }
+                      return null;
+                    },
+                    controller: controller.emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide: const BorderSide(
+                          color: Color(0xffe0e3e7),
+                          width: 2.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(24),
+                        borderSide: const BorderSide(
+                          color: Color(0xffe0e3e7),
+                          width: 2.0,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.all(16),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.recuperarSenha();
+                  },
+                  child: Text('Enviar Email'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF34495E),
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

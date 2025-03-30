@@ -19,7 +19,6 @@ class CreateCompromissosTable extends Migration
             $table->string('local');
             $table->string('data');
             $table->string('descricao');
-            $table->string('notificacao');
             $table->string('status');
             $table->string('obs');
 

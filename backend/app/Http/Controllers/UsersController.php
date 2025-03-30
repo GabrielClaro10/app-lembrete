@@ -58,13 +58,23 @@ class UsersController extends Controller
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'data_nascimento' => 'required|string',
-            'email' => 'email|unique:users,email',
             'telefone' => 'required|string|max:15',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ]);
 
         $user = User::findOrFail($id);
 
         $user->update($validated);
+
+        if ($request->hasFile('foto')) {
+            if ($user->foto) {
+                Storage::delete($user->foto);
+            }
+    
+            // Armazena a nova foto
+            $path = $request->file('foto')->store('user_photos', 'public');
+            $data['foto'] = $path;
+        }
 
         return response()->json(['message' => 'Usuário atualizado com sucesso!', 'data' => $user]);
 

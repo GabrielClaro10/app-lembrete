@@ -14,6 +14,12 @@ class LoginController extends GetxController {
   TextEditingController password = TextEditingController();
   final box = GetStorage();
 
+  var isPasswordVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
   RxBool showPassword = false.obs;
 
   void login() async {
