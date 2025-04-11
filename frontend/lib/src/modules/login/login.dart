@@ -8,9 +8,6 @@ import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
 class Login extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(0xFF34495E),
       body: Center(

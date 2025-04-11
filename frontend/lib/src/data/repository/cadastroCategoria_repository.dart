@@ -14,8 +14,7 @@ class CadastrocategoriaRepository {
   ) async {
     Map<String, dynamic> response =
         await apiClient.registerCategoria(nome, status, userId);
-    return CadastroCategoria.fromJson(
-        response); // Convertemos o mapa de resposta para um objeto CadastroCategoria
+    return CadastroCategoria.fromJson(response);
   }
 
   Future<List<CadastroCategoria>> getCategoria() async {

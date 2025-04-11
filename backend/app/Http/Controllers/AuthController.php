@@ -93,7 +93,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function esqueciSenha(Request $request)
+
+   /* public function esqueciSenha(Request $request)
 {
     $validator = Validator::make($request->all(), [
         'email' => 'required|email',
@@ -140,6 +141,6 @@ public function resetarSenha(Request $request)
     }
 
     return response()->json(['error' => 'Erro ao redefinir a senha'], 400);
-}
+}*/
 
 }

@@ -19,9 +19,13 @@ import 'package:lembra_mais/src/modules/login/login.dart';
 import 'package:lembra_mais/src/modules/login/login_binding.dart';
 import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
 import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_binding.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await GetStorage.init();
+  await initializeDateFormatting(
+      'pt_BR', null); // Inicializa formatação de data para português
 
   runApp(const MyApp());
 }
@@ -36,8 +40,20 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       title: 'Aplicativo GB',
-      initialRoute: auth != null ? '/home' : '/login', // Define a rota inicial
       debugShowCheckedModeBanner: false,
+
+      locale:
+          const Locale('pt', 'BR'), // Define o idioma principal como português
+      supportedLocales: const [
+        Locale('pt', 'BR'), // Português do Brasil
+        Locale('en', 'US'), // Inglês como fallback
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      initialRoute: auth != null ? '/home' : '/login', // Define a rota inicial
       getPages: [
         // Rota de login com o binding do LoginController
         GetPage(

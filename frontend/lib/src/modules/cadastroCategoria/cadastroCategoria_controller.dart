@@ -37,22 +37,60 @@ class CadastrocategoriaController extends GetxController {
           if (user != null && user['id'] != null) {
             int userId = user['id'];
 
-            cadastroCategoria =
-                await repository.registerCategoria(nome.text, status, userId);
+            await repository.registerCategoria(nome.text, status, userId);
 
-            Get.snackbar("Sucesso", "Categoria criada com sucesso");
+            Get.snackbar(
+              "Sucesso",
+              "Categoria criada com sucesso",
+              colorText: Colors.white,
+              backgroundColor: Colors.green[300],
+              messageText: const Text(
+                "Categoria criada com sucesso",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+            );
 
             fetchCategorias();
 
             nome.clear();
           } else {
-            Get.snackbar("Erro", "Usuário não encontrado no auth.");
+            Get.snackbar(
+              "Erro",
+              "Usuário não encontrado no auth.",
+              colorText: Colors.white,
+              backgroundColor: Colors.red[300],
+              messageText: const Text(
+                "Usuário não encontrado no auth.",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+            );
           }
         } else {
-          Get.snackbar("Erro", "Usuário não autenticado.");
+          Get.snackbar(
+            "Erro",
+            "Usuário não autenticado.",
+            colorText: Colors.white,
+            backgroundColor: Colors.red[300],
+            messageText: const Text(
+              "Usuário não autenticado.",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          );
         }
       } catch (e) {
-        Get.snackbar("Erro", "Falha ao criar a categoria: $e");
+        Get.snackbar(
+          "Erro",
+          "Falha ao criar a categoria:",
+          colorText: Colors.white,
+          backgroundColor: Colors.red[300],
+          messageText: const Text(
+            "Falha ao criar a categoria:",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        );
       }
     }
   }
@@ -60,7 +98,7 @@ class CadastrocategoriaController extends GetxController {
   void fetchCategorias() async {
     try {
       var categorias = await repository.getCategoria();
-      listCategorias.assignAll(categorias); // Atualiza a lista observável
+      listCategorias.assignAll(categorias);
     } catch (e) {
       Get.snackbar("Erro", "Falha ao buscar categorias: $e");
     }
@@ -70,9 +108,27 @@ class CadastrocategoriaController extends GetxController {
     try {
       await repository.deleteCategoria(categoriaId);
       listCategorias.removeWhere((categoria) => categoria.id == categoriaId);
-      Get.snackbar("Sucesso", "Categoria removida com sucesso");
+      Get.snackbar(
+        "Sucesso",
+        "Categoria removida com sucesso",
+        colorText: Colors.white,
+        backgroundColor: Colors.green[300],
+        messageText: const Text(
+          "Categoria removida com sucesso",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
     } catch (e) {
-      Get.snackbar("Erro", "Falha ao remover categoria: $e");
+      Get.snackbar(
+        "Erro",
+        "Falha ao remover categoria",
+        colorText: Colors.white,
+        backgroundColor: Colors.red[300],
+        messageText: const Text(
+          "Falha ao remover categoria",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
     }
   }
 }

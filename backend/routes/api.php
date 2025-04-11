@@ -8,6 +8,10 @@ use App\Http\Controllers\CompromissosController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
 
 
 /*
@@ -31,9 +35,9 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::post('esqueciSenha', [AuthController::class, 'esqueciSenha']); // Envia o e-mail com o token
-    Route::post('resetar-senha', [AuthController::class, 'resetarSenha']);
-
+    //Route::post('esqueciSenha', [AuthController::class, 'esqueciSenha']); // Envia o e-mail com o token
+   // Route::post('resetar-senha', [AuthController::class, 'resetarSenha']);
+   
     Route::resource('user', UsersController::class)->except(['create', 'edit']);    
 
 

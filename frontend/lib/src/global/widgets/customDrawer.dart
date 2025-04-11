@@ -54,6 +54,27 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
 
+              const SizedBox(height: 20),
+              const Divider(),
+              const SizedBox(height: 20),
+
+              /// **Item 2: Senhas**
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('CadastroCompromissos');
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 20),
+                    Icon(Icons.add, color: Color(0xFF34495E)),
+                    SizedBox(width: 20),
+                    Text('Cadastrar Compromissos',
+                        style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 15),
               const Divider(),
               const SizedBox(height: 20),

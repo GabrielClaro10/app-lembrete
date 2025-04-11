@@ -68,10 +68,6 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 180,
                 child: Obx(() {
-                  if (controller.listCategorias.isEmpty) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
                   if (controller.listCompromissos.isEmpty) {
                     return const Center(
                       child: Text(
@@ -135,6 +131,7 @@ class _HomeState extends State<Home> {
             ]),
             const SizedBox(height: 20),
             TableCalendar(
+              locale: 'pt_BR',
               firstDay: DateTime.utc(2020, 1, 1),
               lastDay: DateTime.utc(2030, 12, 31),
               focusedDay: _focusedDay,
