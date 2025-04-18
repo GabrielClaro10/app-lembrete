@@ -23,7 +23,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' =>  'Credenciais incorretas. Verifique seu e-mail e senha.'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -44,7 +44,6 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        // Criação do usuário
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -54,8 +53,7 @@ class AuthController extends Controller
             'foto' => $request->foto,
         ]);
 
-        // Gerar token para o novo usuário
-        $token = auth()->login($user);  // Login automático após criar o usuário
+        $token = auth()->login($user); 
 
         return response()->json([
             'message' => 'Usuário criado com sucesso!',
@@ -92,55 +90,5 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
-
-
-   /* public function esqueciSenha(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|email',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['error' => $validator->errors()->first()], 400);
-    }
-
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
-
-    if ($status === Password::RESET_LINK_SENT) {
-        return response()->json(['message' => 'E-mail de recuperação enviado com sucesso']);
-    }
-
-    return response()->json(['error' => 'Erro ao enviar e-mail de recuperação'], 400);
-}
-
-public function resetarSenha(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|email',
-        'token' => 'required',
-        'nova_senha' => 'required|min:6|confirmed',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json($validator->errors(), 400);
-    }
-
-    // Tenta redefinir a senha usando o token e a nova senha
-    $status = Password::reset(
-        $request->only('email', 'token', 'nova_senha'),
-        function ($user) use ($request) {
-            $user->password = Hash::make($request->nova_senha);
-            $user->save();
-        }
-    );
-
-    if ($status === Password::PASSWORD_RESET) {
-        return response()->json(['message' => 'Senha redefinida com sucesso']);
-    }
-
-    return response()->json(['error' => 'Erro ao redefinir a senha'], 400);
-}*/
 
 }

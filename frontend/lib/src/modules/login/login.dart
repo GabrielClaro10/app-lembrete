@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_binding.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users_binding.dart';
 import 'package:lembra_mais/src/modules/login/login_controller.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users.dart';
 
 class Login extends GetView<LoginController> {
   @override
@@ -18,7 +18,7 @@ class Login extends GetView<LoginController> {
             borderRadius: BorderRadius.circular(8.0),
           ),
           width: 400,
-          height: 600,
+          height: 450,
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -82,8 +82,7 @@ class Login extends GetView<LoginController> {
                           return null;
                         },
                         controller: controller.password,
-                        obscureText: !controller
-                            .isPasswordVisible.value, // Alterna visibilidade
+                        obscureText: !controller.isPasswordVisible.value,
                         decoration: InputDecoration(
                           labelText: 'Senha',
                           border: OutlineInputBorder(

@@ -6,7 +6,7 @@ class UserService {
 
   static Future<void> createUser(String nome, String dataNascimento,
       String email, String telefone, int tema) async {
-    final String url = '$_baseUrl/usuarios';
+    const String url = '$_baseUrl/usuarios';
 
     final Map<String, dynamic> body = {
       'nome': nome,

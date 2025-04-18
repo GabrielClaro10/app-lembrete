@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
-import 'package:lembra_mais/src/data/model/cadastroCompromissos_model.dart';
-import 'package:lembra_mais/src/data/repository/cadastroCategoria_repository.dart';
-import 'package:lembra_mais/src/data/repository/cadastroCompromissos_repository.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_compromissos_model.dart';
+import 'package:lembra_mais/src/data/repository/cadastro_categoria_repository.dart';
+import 'package:lembra_mais/src/data/repository/cadastro_compromissos_repository.dart';
 
 class CadastroCompromissosController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -61,7 +61,17 @@ class CadastroCompromissosController extends GetxController {
             int? idCategoriaSelecionada = categoriaSelecionada.value?.id;
 
             if (idCategoriaSelecionada == null) {
-              print("Erro, Por favor, selecione uma categoria.");
+              Get.snackbar(
+                "Erro",
+                "Por favor, selecione uma categoria.",
+                colorText: Colors.white,
+                backgroundColor: Colors.red[300],
+                messageText: const Text(
+                  "Por favor, selecione uma categoria.",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              );
               return;
             }
             await repository.registerCompromissos(
@@ -74,9 +84,24 @@ class CadastroCompromissosController extends GetxController {
               idCategoriaSelecionada,
             );
 
-            print("Sucesso, Compromisso criado com sucesso");
+            localController.clear();
+            dataController.clear();
+            descricaoController.clear();
+            obsController.clear();
 
-            Get.toNamed('/lembretes');
+            Get.snackbar(
+              "Sucesso",
+              "Compromisso criado com sucesso",
+              colorText: Colors.white,
+              backgroundColor: Colors.green[300],
+              messageText: const Text(
+                "Compromisso criado com sucesso",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+            );
+
+            Get.offAllNamed('lembretes');
           } else {
             print("Erro, Usuário não encontrado no auth.");
           }

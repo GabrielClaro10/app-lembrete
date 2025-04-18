@@ -35,8 +35,6 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    //Route::post('esqueciSenha', [AuthController::class, 'esqueciSenha']); // Envia o e-mail com o token
-   // Route::post('resetar-senha', [AuthController::class, 'resetarSenha']);
    
     Route::resource('user', UsersController::class)->except(['create', 'edit']);    
 

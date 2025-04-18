@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
-import 'package:lembra_mais/src/data/model/cadastroCompromissos_model.dart';
-import 'package:lembra_mais/src/data/repository/cadastroCategoria_repository.dart';
-import 'package:lembra_mais/src/data/repository/cadastroCompromissos_repository.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_compromissos_model.dart';
+import 'package:lembra_mais/src/data/repository/cadastro_categoria_repository.dart';
+import 'package:lembra_mais/src/data/repository/cadastro_compromissos_repository.dart';
 
 class LembretesController extends GetxController {
   final repository = Get.find<CadastrocompromissosRepository>();
@@ -69,6 +69,17 @@ class LembretesController extends GetxController {
         }
       }).toList();
     }
+
+    compromissosFiltrados.sort((a, b) {
+      try {
+        DateTime dataA = DateFormat("dd/MM/yyyy HH:mm").parse(a.data!);
+        DateTime dataB = DateFormat("dd/MM/yyyy HH:mm").parse(b.data!);
+        return dataA.compareTo(dataB);
+      } catch (e) {
+        return 0;
+      }
+    });
+
     listCompromissosFiltrados.assignAll(compromissosFiltrados);
   }
 
@@ -105,6 +116,36 @@ class LembretesController extends GetxController {
       print("📅 Data de fim selecionada: $selectedDate");
       dataFim.value = selectedDate;
       filtrarCompromissos();
+    }
+  }
+
+  Future<void> deleteCompromisso(int compromissoId) async {
+    try {
+      await repository.deleteCompromisso(compromissoId);
+      listCompromissos
+          .removeWhere((compromisso) => compromisso.id == compromissoId);
+      filtrarCompromissos();
+      Get.snackbar(
+        "Sucesso",
+        "Compromisso removida com sucesso",
+        colorText: Colors.white,
+        backgroundColor: Colors.green[300],
+        messageText: const Text(
+          "Compromisso removida com sucesso",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Erro",
+        "Falha ao remover Compromisso",
+        colorText: Colors.white,
+        backgroundColor: Colors.red[300],
+        messageText: const Text(
+          "Falha ao remover Compromisso",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
     }
   }
 }

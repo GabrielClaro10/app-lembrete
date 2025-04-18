@@ -38,8 +38,8 @@ $status = Password::sendResetLink(
 );
 
 return $status === Password::RESET_LINK_SENT
-    ? back()->with(['status' => __($status)])
-    : back()->withErrors(['email' => __($status)]);
+    ? response()->json(['message' => 'E-mail de redefinição enviado com sucesso.'], 200)
+    : response()->json(['message' => 'Não foi possível enviar o e-mail.'], 422);
 })->middleware('guest')->name('password.email');
 
 Route::get('/reset-password/{token}', function (string $token) {

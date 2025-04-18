@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
-import 'package:lembra_mais/src/data/repository/cadastroCategoria_repository.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
+import 'package:lembra_mais/src/data/repository/cadastro_categoria_repository.dart';
 
 class CadastrocategoriaController extends GetxController {
   final formKey = GlobalKey<FormState>();

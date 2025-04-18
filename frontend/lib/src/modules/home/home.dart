@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
+import 'package:lembra_mais/src/global/widgets/EmptyList.dart';
 import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/home/home_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -36,11 +37,11 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed('/CadastroCompromissos');
+          Get.toNamed('CadastroCompromissos');
         },
-        child: Icon(Icons.add),
         backgroundColor: const Color(0xFF34495E),
         foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
       ),
       endDrawer: CustomDrawer(),
       backgroundColor: Colors.white,
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
                     return const Center(
                       child: Text(
                         'Nenhum compromisso encontrado.',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     );
                   }
@@ -164,21 +165,27 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 20),
             Obx(() {
               if (controller.compromissosFiltrados.isEmpty) {
-                return const Center(
-                    child: Text('Nenhum compromisso para este dia'));
+                return const EmptyList(
+                  title: 'Sem compromissos hoje',
+                  subtitle:
+                      'Você não possui compromissos cadastrados para esta data.',
+                  imageAsset: 'assets/images/empty-list.jpeg',
+                );
               }
 
               return ListView.builder(
                 shrinkWrap: true,
                 physics:
-                    NeverScrollableScrollPhysics(), // Evita conflito de scroll
+                    const NeverScrollableScrollPhysics(), // Evita conflito de scroll
                 itemCount: controller.compromissosFiltrados.length,
                 itemBuilder: (context, index) {
                   final compromisso = controller.compromissosFiltrados[index];
                   final categoria = controller.listCategorias.firstWhere(
                     (categoria) => categoria.id == compromisso.idCategoria,
                     orElse: () => CadastroCategoria(
-                        id: 0, nome: 'Categoria não encontrada'),
+                      id: 0,
+                      nome: 'Categoria não encontrada',
+                    ),
                   );
 
                   return Card(
@@ -195,8 +202,8 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(compromisso.data
-                              .toString()), // Ajuste conforme necessário
-                          SizedBox(height: 4),
+                              .toString()), // Formate como preferir
+                          const SizedBox(height: 4),
                           Text(compromisso.local ?? "Sem local"),
                         ],
                       ),

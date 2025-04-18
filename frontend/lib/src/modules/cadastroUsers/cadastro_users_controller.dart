@@ -29,7 +29,6 @@ class CadastroUsersController extends GetxController {
     isPasswordConfirmationVisible.value = !isPasswordConfirmationVisible.value;
   }
 
-  // Função de registro
   void register() async {
     if (formKey.currentState!.validate()) {
       try {
@@ -42,7 +41,6 @@ class CadastroUsersController extends GetxController {
           telefoneController.text,
         );
 
-        // Verifica diretamente o token da resposta
         if (authResponse.accessToken != null) {
           Get.offAllNamed('/home');
         } else {

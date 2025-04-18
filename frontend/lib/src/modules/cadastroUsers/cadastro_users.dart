@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/modules/login/login.dart';
 import 'package:flutter/gestures.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_controller.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastrarUser extends GetView<CadastroUsersController> {

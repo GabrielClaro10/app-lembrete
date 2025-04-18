@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria.dart';
-import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria_binding.dart';
-import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos.dart';
-import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_binding.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_binding.dart';
-import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos.dart';
-import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhesCompromissos_binding.dart';
-import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha.dart';
-import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha_binding.dart';
+import 'package:lembra_mais/src/modules/cadastroCategoria/cadastro_categoria.dart';
+import 'package:lembra_mais/src/modules/cadastroCategoria/cadastro_categoria_binding.dart';
+import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastro_compromissos.dart';
+import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastro_compromissos_binding.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users_binding.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhes_compromissos.dart';
+import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhes_compromissos_binding.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceu_senha.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceu_senha_binding.dart';
 import 'package:lembra_mais/src/modules/home/home.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users.dart';
 import 'package:lembra_mais/src/modules/home/home_binding.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes_binding.dart';
 import 'package:lembra_mais/src/modules/login/login.dart';
 import 'package:lembra_mais/src/modules/login/login_binding.dart';
-import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario.dart';
-import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_binding.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfil_usuario.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfil_usuario_binding.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -63,22 +63,22 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/CadastrarUser',
-          page: () => CadastrarUser(),
+          page: () => const CadastrarUser(),
           binding: CadastrousersBinding(), // Associe o binding aqui
         ),
         GetPage(
           name: '/CadastroCompromissos',
-          page: () => Cadastrocompromissos(),
+          page: () => const Cadastrocompromissos(),
           binding: CadastrocompromissosBinding(), // Associe o binding aqui
         ),
         GetPage(
           name: '/CadastroCategoria',
-          page: () => CadastroCategoria(),
+          page: () => const CadastroCategoria(),
           binding: CadastrocategoriaBinding(), // Associe o binding aqui
         ),
         GetPage(
           name: '/lembretes',
-          page: () => Lembretes(),
+          page: () => const Lembretes(),
           binding: LembretesBinding(), // Associe o binding aqui
         ),
         GetPage(
@@ -98,9 +98,9 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/esqueceuSenha',
-          page: () => EsqueceuSenha(),
+          page: () => const EsqueceuSenha(),
           binding: EsqueceusenhaBinding(), // Associe o binding aqui
-        )
+        ),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/repository/auth_repository.dart';
-import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_controller.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfil_usuario_controller.dart';
 
 class PerfilusuarioBinding implements Bindings {
   @override

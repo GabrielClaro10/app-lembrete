@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha_controller.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceu_senha_controller.dart';
 
 class EsqueceuSenha extends GetView<EsqueceuSenhaController> {
   const EsqueceuSenha({super.key});
@@ -94,7 +94,8 @@ class EsqueceuSenha extends GetView<EsqueceuSenhaController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    controller.recuperarSenha();
+                    controller
+                        .sendResetPassword(controller.emailController.text);
                   },
                   child: Text('Enviar Email'),
                   style: ElevatedButton.styleFrom(

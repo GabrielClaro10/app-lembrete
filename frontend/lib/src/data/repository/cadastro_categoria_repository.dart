@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
 import 'package:lembra_mais/src/data/provider/auth_provider.dart';
 import 'package:lembra_mais/src/data/provider/categoria_provider.dart';
 

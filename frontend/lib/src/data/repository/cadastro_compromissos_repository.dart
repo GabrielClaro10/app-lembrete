@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/data/model/cadastroCompromissos_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_compromissos_model.dart';
 import 'package:lembra_mais/src/data/provider/auth_provider.dart';
 import 'package:lembra_mais/src/data/provider/compromissos_provider.dart';
 
@@ -32,5 +32,9 @@ class CadastrocompromissosRepository {
     }
 
     return list;
+  }
+
+  Future<void> deleteCompromisso(int compromissoId) async {
+    await compromissosApiClient.deleteCompromissos(compromissoId);
   }
 }

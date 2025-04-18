@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,8 +31,7 @@ class PerfilUsuarioController extends GetxController {
     final XFile? pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile != null) {
-      foto.value =
-          pickedFile.path; // Armazenando o caminho da imagem no controller
+      foto.value = pickedFile.path;
     }
   }
 
@@ -116,11 +113,19 @@ class PerfilUsuarioController extends GetxController {
       telefoneController.text = user.telefone!;
       dataNascimentoController.text = user.dataNascimento!;
 
-      print("Sucesso! Dados atualizados com sucesso!");
-
+      Get.snackbar(
+        "Sucesso",
+        "Dados atualizados com sucesso!",
+        colorText: Colors.white,
+        backgroundColor: Colors.green[300],
+        messageText: const Text(
+          "Dados atualizados com sucesso!",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
       loadUserData();
     } catch (e) {
-      print("Erro ao atualizar dados: $e");
+      print("erro $e");
     } finally {
       isLoading.value = false;
     }

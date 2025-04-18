@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/modules/perfilUsuario/perfilUsuario_controller.dart';
+import 'package:lembra_mais/src/modules/perfilUsuario/perfil_usuario_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class Perfilusuario extends StatelessWidget {

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -24,7 +26,16 @@ class AuthApiClient {
             'Erro na solicitação: ${response.statusCode}, ${response.body}');
       }
     } catch (erro) {
-      print('Erro durante o login: $erro');
+      Get.snackbar(
+        "Erro",
+        "Credenciais incorretas. Verifique seu e-mail e senha.",
+        colorText: Colors.white,
+        backgroundColor: Colors.red[300],
+        messageText: const Text(
+          "Credenciais incorretas. Verifique seu e-mail e senha.",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      );
       rethrow;
     }
   }
@@ -169,6 +180,31 @@ class AuthApiClient {
       }
     } catch (erro) {
       print('Erro durante o registro: $erro');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword(String email) async {
+    try {
+      final response = await http.post(
+        Uri.parse("http://192.168.200.100:8000/forgot-password"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: json.encode({
+          "email": email,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body);
+      } else {
+        throw Exception(
+            'Erro na solicitação: ${response.statusCode}, ${response.body}');
+      }
+    } catch (erro) {
+      print('Erro durante o reset de senha: $erro');
       rethrow;
     }
   }

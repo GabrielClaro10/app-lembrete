@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceuSenha_controller.dart';
+import 'package:lembra_mais/src/modules/esqueceuSenha/esqueceu_senha_controller.dart';
 
 class EsqueceusenhaBinding implements Bindings {
   @override

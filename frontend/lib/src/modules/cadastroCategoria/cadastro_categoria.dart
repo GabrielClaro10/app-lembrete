@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
-import 'package:lembra_mais/src/modules/cadastroCategoria/cadastroCategoria_controller.dart';
+import 'package:lembra_mais/src/modules/cadastroCategoria/cadastro_categoria_controller.dart';
 
 class CadastroCategoria extends GetView<CadastrocategoriaController> {
   const CadastroCategoria({super.key});
@@ -87,7 +87,6 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                   onPressed: () {
                     controller.createCategoria();
                   },
-                  child: Text('Cadastrar'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF34495E),
                     foregroundColor: Colors.white,
@@ -96,6 +95,7 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  child: const Text('Cadastrar'),
                 ),
                 const SizedBox(height: 20),
                 Expanded(

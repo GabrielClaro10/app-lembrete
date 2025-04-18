@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/provider/auth_provider.dart';
 import 'package:lembra_mais/src/data/repository/auth_repository.dart';
-import 'package:lembra_mais/src/modules/cadastroUsers/cadastroUsers_controller.dart';
+import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users_controller.dart';
 
 class CadastrousersBinding implements Bindings {
   @override

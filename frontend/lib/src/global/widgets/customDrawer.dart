@@ -33,15 +33,12 @@ class CustomDrawer extends StatelessWidget {
                   Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
                 ],
               ),
-
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 20),
-
-              /// **Item 2: Senhas**
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('home');
+                  Get.offAllNamed('home');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -53,12 +50,9 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 20),
-
-              /// **Item 2: Senhas**
               GestureDetector(
                 onTap: () {
                   Get.toNamed('CadastroCompromissos');
@@ -74,14 +68,12 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 15),
               const Divider(),
               const SizedBox(height: 20),
-
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/lembretes');
+                  Get.toNamed('lembretes');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -89,18 +81,16 @@ class CustomDrawer extends StatelessWidget {
                     SizedBox(width: 20),
                     Icon(Icons.file_copy, color: Color(0xFF34495E)),
                     SizedBox(width: 20),
-                    Text('Lembretes', style: TextStyle(fontSize: 14)),
+                    Text('Compromissos', style: TextStyle(fontSize: 14)),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 20),
-
-              /// **Item 3: Perfil**
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/perfilUsuario');
+                  Get.toNamed('perfilUsuario');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -115,11 +105,9 @@ class CustomDrawer extends StatelessWidget {
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 20),
-
-              /// **Item 4: Cadastrar Categoria**
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/CadastroCategoria');
+                  Get.toNamed('CadastroCategoria');
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -135,8 +123,6 @@ class CustomDrawer extends StatelessWidget {
               const Divider(),
             ],
           ),
-
-          /// **Botão de Logout**
           Padding(
             padding: const EdgeInsets.all(24),
             child: GestureDetector(

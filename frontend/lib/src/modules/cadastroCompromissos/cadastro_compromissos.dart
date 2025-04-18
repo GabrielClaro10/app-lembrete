@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
 import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
-import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastroCompromissos_controller.dart';
+import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastro_compromissos_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
@@ -73,17 +73,19 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                     return DropdownButtonFormField<CadastroCategoria>(
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xfff1f4f8),
+                        fillColor: const Color(0xfff1f4f8),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                          borderSide:
+                              const BorderSide(color: Colors.blue, width: 2),
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                       ),
                       hint: const Text("Selecione um tipo compromisso"),
                       value: controller.categoriaSelecionada.value,
@@ -226,6 +228,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                         color: Colors.red,
                       ),
                     ),
+                    maxLines: null,
                   ),
                 ),
                 Padding(
@@ -264,6 +267,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                         color: Colors.red,
                       ),
                     ),
+                    maxLines: null,
                   ),
                 ),
                 const SizedBox(height: 40),

@@ -8,6 +8,7 @@ class DetalhesCompromissosController extends GetxController {
   var descricao = "".obs;
   var obs = "".obs;
 
+  @override
   void onInit() {
     super.onInit();
 

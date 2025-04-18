@@ -16,8 +16,8 @@ class Auth {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.user != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (user != null) {
       data['user'] = user!.toJson();
     }
     data['access_token'] = accessToken;

@@ -35,7 +35,7 @@ class CompromissosApiClient {
     }
   }
 
-  Future<dynamic> deleteCompromissos(int userId) async {
+  Future<dynamic> deleteCompromissos(int compromissoId) async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -44,7 +44,8 @@ class CompromissosApiClient {
       }
 
       var response = await http.delete(
-        Uri.parse("http://192.168.200.100:8000/api/compromissos/$userId"),
+        Uri.parse(
+            "http://192.168.200.100:8000/api/compromissos/$compromissoId"),
         headers: {"Authorization": "Bearer $token"},
       );
 
@@ -56,7 +57,7 @@ class CompromissosApiClient {
         );
       }
     } catch (erro) {
-      print('Erro ao obter categorias: $erro');
+      print('Erro ao obter compromisso: $erro');
       rethrow;
     }
   }

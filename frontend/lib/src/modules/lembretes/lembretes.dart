@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lembra_mais/src/data/model/cadastroCategoria_model.dart';
+import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
+import 'package:lembra_mais/src/global/widgets/EmptyList.dart';
 import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes_controller.dart';
 
@@ -48,14 +49,14 @@ class Lembretes extends GetView<LembretesController> {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Lista de Lembretes',
+                  'Lista de Compromissos',
                   style: TextStyle(
                     fontSize: 24,
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: TextField(
                   controller: controller.pesquisaFiltro,
                   decoration: const InputDecoration(
@@ -85,7 +86,6 @@ class Lembretes extends GetView<LembretesController> {
                 child: Text('Filtrar por data'),
               ),
               const SizedBox(height: 10),
-              // Date range picker section
               Row(
                 children: [
                   Expanded(
@@ -166,7 +166,6 @@ class Lembretes extends GetView<LembretesController> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 20),
               Container(
                 alignment: Alignment.centerLeft,
@@ -178,6 +177,32 @@ class Lembretes extends GetView<LembretesController> {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed("CadastroCompromissos");
+                },
+                child: Container(
+                  width: 230,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF34495E),
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Row(
+                    children: [
+                      Text(
+                        "Adicionar Compromisso",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(width: 12),
+                      Icon(Icons.add, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 6),
               Expanded(
                 child: Obx(() {
@@ -185,11 +210,11 @@ class Lembretes extends GetView<LembretesController> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (controller.listCompromissos.isEmpty) {
-                    return const Center(
-                        child: Text('Nenhum compromisso encontrado.',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )));
+                    return const EmptyList(
+                      title: 'Sem compromissos',
+                      subtitle: 'Você não possui compromissos cadastrados.',
+                      imageAsset: 'assets/images/empty-list.jpeg',
+                    );
                   }
 
                   return ListView.builder(
@@ -225,7 +250,12 @@ class Lembretes extends GetView<LembretesController> {
                               Text(compromissos.local ?? "Sem local"),
                             ],
                           ),
-                          trailing: const Text('Reunião'),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              controller.deleteCompromisso(compromissos.id!);
+                            },
+                          ),
                           onTap: () {
                             Get.toNamed('/DetalhesCompromissos', arguments: {
                               "id": compromissos.id,
