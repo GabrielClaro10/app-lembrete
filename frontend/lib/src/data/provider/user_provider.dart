@@ -8,7 +8,7 @@ class UserProvider {
   final http.Client httpClient = http.Client();
   final box = GetStorage();
 
-  Future<Map<String, dynamic>> getUserDetails() async {
+  Future<Map<String, dynamic>> buscarUsuarioDetalhes() async {
     try {
       var authData = box.read('auth');
 
@@ -34,7 +34,7 @@ class UserProvider {
       }
 
       final response = await http.get(
-        Uri.parse("http://192.168.200.100:8000/api/user/$userId"),
+        Uri.parse("http://10.0.2.2:8000/api/user/$userId"),
         headers: {
           "Authorization": "Bearer $token",
           "Accept": "application/json",
@@ -57,7 +57,7 @@ class UserProvider {
     }
   }
 
-  Future<Map<String, dynamic>> updateUser(
+  Future<Map<String, dynamic>> alterarUsuario(
     String nome,
     String dataNascimento,
     String? foto,
@@ -65,37 +65,75 @@ class UserProvider {
   ) async {
     try {
       var authData = Auth.fromJson(box.read('auth'));
-
-      String? token = Auth.fromJson(box.read('auth')).accessToken;
+      String? token = authData.accessToken;
       int? userId = authData.user?.id;
 
       if (token == null || userId == null) {
         throw Exception("Token ou ID do usuário não encontrado.");
       }
 
-      final response = await http.put(
-        Uri.parse("http://192.168.200.100:8000/api/user/$userId"),
+      var uri = Uri.parse("http://10.0.2.2:8000/api/user/$userId");
+
+      var response = await http.post(
+        uri,
         headers: {
-          "Authorization": "Bearer $token",
-          "Content-Type": "application/json",
-          "Accept": "application/json",
+          'Authorization': 'Bearer $token',
+          'Accept': 'application/json',
         },
-        body: jsonEncode({
-          "nome": nome,
-          "data_nascimento": dataNascimento,
-          "foto": foto,
-          "telefone": telefone,
-        }),
+        body: {
+          '_method': 'PUT',
+          'nome': nome,
+          'data_nascimento': dataNascimento,
+          'telefone': telefone ?? '',
+          'foto': foto ?? '',
+        },
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return json.decode(response.body);
-      } else {
-        throw Exception(
-            'Erro na solicitação: ${response.statusCode}, ${response.body}');
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Erro: ${response.statusCode}, ${response.body}');
       }
+
+      return json.decode(response.body);
     } catch (erro) {
       print('Erro durante o update: $erro');
+      rethrow;
+    }
+  }
+
+  Future<String> uploadImagemParaServidor(String filePath) async {
+    try {
+      var authData = box.read('auth');
+
+      if (authData is String) {
+        authData = jsonDecode(authData);
+      }
+      var auth = Auth.fromJson(authData);
+
+      String? token = auth.accessToken;
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://10.0.2.2:8000/api/upload'),
+      );
+      request.headers['Authorization'] = 'Bearer $token';
+      request.headers['Accept'] = 'application/json';
+
+      var multipartFile = await http.MultipartFile.fromPath('foto', filePath);
+      request.files.add(multipartFile);
+
+      var response = await request.send();
+
+      final responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(responseBody);
+        return jsonResponse['path'];
+      } else {
+        throw Exception(
+            'Falha no upload com status code ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Erro no uploadImagemParaServidor: $e');
       rethrow;
     }
   }

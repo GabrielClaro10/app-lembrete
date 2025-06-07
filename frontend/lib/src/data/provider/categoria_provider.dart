@@ -9,7 +9,7 @@ class CategoriaApiClient {
 
   final box = GetStorage();
 
-  Future<dynamic> getCategoria() async {
+  Future<dynamic> buscarCategoria() async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -18,7 +18,7 @@ class CategoriaApiClient {
       }
 
       var response = await http.get(
-        Uri.parse("http://192.168.200.100:8000/api/categoria"),
+        Uri.parse("http://10.0.2.2:8000/api/categoria"),
         headers: {"Authorization": "Bearer $token"},
       );
 
@@ -35,7 +35,7 @@ class CategoriaApiClient {
     }
   }
 
-  Future<dynamic> deleteCategoria(int categoriaId) async {
+  Future<dynamic> deletarCategoria(int categoriaId) async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -44,7 +44,7 @@ class CategoriaApiClient {
       }
 
       var response = await http.delete(
-        Uri.parse("http://192.168.200.100:8000/api/categoria/$categoriaId"),
+        Uri.parse("http://10.0.2.2:8000/api/categoria/$categoriaId"),
         headers: {"Authorization": "Bearer $token"},
       );
 

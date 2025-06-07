@@ -18,11 +18,11 @@ class CadastrocategoriaController extends GetxController {
 
   @override
   void onInit() {
-    fetchCategorias();
+    buscarCategoria();
     super.onInit();
   }
 
-  Future<void> createCategoria() async {
+  Future<void> criarCategoria() async {
     if (formKey.currentState!.validate()) {
       const String status = "ativo";
 
@@ -37,7 +37,7 @@ class CadastrocategoriaController extends GetxController {
           if (user != null && user['id'] != null) {
             int userId = user['id'];
 
-            await repository.registerCategoria(nome.text, status, userId);
+            await repository.registrarCategoria(nome.text, status, userId);
 
             Get.snackbar(
               "Sucesso",
@@ -51,7 +51,7 @@ class CadastrocategoriaController extends GetxController {
               ),
             );
 
-            fetchCategorias();
+            buscarCategoria();
 
             nome.clear();
           } else {
@@ -95,18 +95,18 @@ class CadastrocategoriaController extends GetxController {
     }
   }
 
-  void fetchCategorias() async {
+  void buscarCategoria() async {
     try {
-      var categorias = await repository.getCategoria();
+      var categorias = await repository.buscarCategoria();
       listCategorias.assignAll(categorias);
     } catch (e) {
       Get.snackbar("Erro", "Falha ao buscar categorias: $e");
     }
   }
 
-  Future<void> deleteCategoria(int categoriaId) async {
+  Future<void> deletarCategoria(int categoriaId) async {
     try {
-      await repository.deleteCategoria(categoriaId);
+      await repository.deletarCategoria(categoriaId);
       listCategorias.removeWhere((categoria) => categoria.id == categoriaId);
       Get.snackbar(
         "Sucesso",

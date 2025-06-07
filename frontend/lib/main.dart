@@ -24,8 +24,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   await GetStorage.init();
-  await initializeDateFormatting(
-      'pt_BR', null); // Inicializa formatação de data para português
+  await initializeDateFormatting('pt_BR', null);
 
   runApp(const MyApp());
 }
@@ -41,65 +40,62 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Aplicativo GB',
       debugShowCheckedModeBanner: false,
-
-      locale:
-          const Locale('pt', 'BR'), // Define o idioma principal como português
+      locale: const Locale('pt', 'BR'),
       supportedLocales: const [
-        Locale('pt', 'BR'), // Português do Brasil
-        Locale('en', 'US'), // Inglês como fallback
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      initialRoute: auth != null ? '/home' : '/login', // Define a rota inicial
+      initialRoute: auth != null ? '/home' : '/login',
       getPages: [
-        // Rota de login com o binding do LoginController
         GetPage(
           name: '/login',
           page: () => Login(),
-          binding: LoginBinding(), // Associe o binding aqui
+          binding: LoginBinding(),
         ),
         GetPage(
           name: '/CadastrarUser',
           page: () => const CadastrarUser(),
-          binding: CadastrousersBinding(), // Associe o binding aqui
+          binding: CadastrousersBinding(),
         ),
         GetPage(
           name: '/CadastroCompromissos',
           page: () => const Cadastrocompromissos(),
-          binding: CadastrocompromissosBinding(), // Associe o binding aqui
+          binding: CadastrocompromissosBinding(),
         ),
         GetPage(
           name: '/CadastroCategoria',
           page: () => const CadastroCategoria(),
-          binding: CadastrocategoriaBinding(), // Associe o binding aqui
+          binding: CadastrocategoriaBinding(),
         ),
         GetPage(
           name: '/lembretes',
           page: () => const Lembretes(),
-          binding: LembretesBinding(), // Associe o binding aqui
+          binding: LembretesBinding(),
         ),
         GetPage(
           name: '/DetalhesCompromissos',
           page: () => const DetalhesCompromissos(),
-          binding: DetalhesCompromissosBinding(), // Associe o binding aqui
+          binding: DetalhesCompromissosBinding(),
         ),
         GetPage(
           name: '/home',
           page: () => const Home(),
-          binding: HomeBinding(), // Associe o binding aqui
+          binding: HomeBinding(),
         ),
         GetPage(
           name: '/perfilUsuario',
           page: () => Perfilusuario(),
-          binding: PerfilusuarioBinding(), // Associe o binding aqui
+          binding: PerfilusuarioBinding(),
         ),
         GetPage(
           name: '/esqueceuSenha',
           page: () => const EsqueceuSenha(),
-          binding: EsqueceusenhaBinding(), // Associe o binding aqui
+          binding: EsqueceusenhaBinding(),
         ),
       ],
     );

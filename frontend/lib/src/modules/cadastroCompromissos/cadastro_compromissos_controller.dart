@@ -24,7 +24,7 @@ class CadastroCompromissosController extends GetxController {
 
   @override
   void onInit() {
-    fetchCategorias();
+    buscarCategorias();
     super.onInit();
   }
 
@@ -34,17 +34,17 @@ class CadastroCompromissosController extends GetxController {
     repetirAlarme.value = value;
   }
 
-  DateTime parseDate(String dateString) {
+  DateTime analisarData(String dateString) {
     DateFormat format = DateFormat("dd/MM/yyyy HH:mm");
     try {
       return format.parse(dateString);
     } catch (e) {
-      print("Erro ao parsear a data: $e");
+      print("Erro ao analisar a data: $e");
       return DateTime.now();
     }
   }
 
-  Future<void> createCompromissos() async {
+  Future<void> criarCompromisso() async {
     if (formKey.currentState!.validate()) {
       const String status = "ativo";
 
@@ -74,7 +74,7 @@ class CadastroCompromissosController extends GetxController {
               );
               return;
             }
-            await repository.registerCompromissos(
+            await repository.registrarCompromisso(
               localController.text,
               dataController.text,
               descricaoController.text,
@@ -114,12 +114,12 @@ class CadastroCompromissosController extends GetxController {
     }
   }
 
-  void fetchCategorias() async {
-    var categorias = await repositoryCat.getCategoria();
+  void buscarCategorias() async {
+    var categorias = await repositoryCat.buscarCategoria();
     listCategorias.assignAll(categorias);
   }
 
-  void setCatSelecionada(CadastroCategoria value) {
+  void setarCategoriaSelecionada(CadastroCategoria value) {
     categoriaSelecionada.value = value;
   }
 }

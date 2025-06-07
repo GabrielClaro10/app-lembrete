@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/modules/perfilUsuario/perfil_usuario_controller.dart';
@@ -39,20 +38,35 @@ class Perfilusuario extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Obx(() {
-                              // Usando controller.foto2 para mostrar a imagem selecionada
-                              return CircleAvatar(
-                                radius: 50,
-                                backgroundImage: controller.foto.value.isEmpty
-                                    ? const NetworkImage(
-                                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
-                                    : FileImage(File(controller.foto
-                                        .value)), // Usa a imagem selecionada
+                              final fileName = controller.foto.value;
+                              const String defaultImage =
+                                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+                              final imageUrl = fileName.isNotEmpty
+                                  ? 'http://10.0.2.2:8000/storage$fileName'
+                                  : defaultImage;
+
+                              return CachedNetworkImage(
+                                imageUrl: imageUrl,
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: imageProvider,
+                                ),
+                                placeholder: (context, url) =>
+                                    const CircleAvatar(
+                                  radius: 50,
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: NetworkImage(defaultImage),
+                                ),
                               );
                             }),
                             const SizedBox(height: 12),
                             TextButton(
-                              onPressed: () => controller.showPicker(
-                                  context), // Chama a função do controller
+                              onPressed: () => controller.showPicker(context),
                               child: const Text('Trocar Foto'),
                             ),
                           ],
@@ -156,7 +170,7 @@ class Perfilusuario extends StatelessWidget {
                   const SizedBox(height: 40),
                   ElevatedButton(
                     onPressed: () {
-                      controller.updateUserData();
+                      controller.atualizarUsuario();
                     },
                     child: Text('Editar'),
                     style: ElevatedButton.styleFrom(

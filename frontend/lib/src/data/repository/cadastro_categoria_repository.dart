@@ -7,19 +7,19 @@ class CadastrocategoriaRepository {
   final AuthApiClient apiClient = AuthApiClient();
   final CategoriaApiClient categoriaApiClient = Get.find<CategoriaApiClient>();
 
-  Future<CadastroCategoria> registerCategoria(
+  Future<CadastroCategoria> registrarCategoria(
     String nome,
     String status,
     int userId,
   ) async {
     Map<String, dynamic> response =
-        await apiClient.registerCategoria(nome, status, userId);
+        await apiClient.registrarCategoria(nome, status, userId);
     return CadastroCategoria.fromJson(response);
   }
 
-  Future<List<CadastroCategoria>> getCategoria() async {
+  Future<List<CadastroCategoria>> buscarCategoria() async {
     List<CadastroCategoria> list = [];
-    var response = await categoriaApiClient.getCategoria();
+    var response = await categoriaApiClient.buscarCategoria();
 
     for (var e in response) {
       list.add(CadastroCategoria.fromJson(e));
@@ -28,7 +28,7 @@ class CadastrocategoriaRepository {
     return list;
   }
 
-  Future<void> deleteCategoria(int categoriaId) async {
-    await categoriaApiClient.deleteCategoria(categoriaId);
+  Future<void> deletarCategoria(int categoriaId) async {
+    await categoriaApiClient.deletarCategoria(categoriaId);
   }
 }

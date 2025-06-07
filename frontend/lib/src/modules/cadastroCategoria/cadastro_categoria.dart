@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
+import 'package:lembra_mais/src/global/widgets/custom_drawer.dart';
 import 'package:lembra_mais/src/modules/cadastroCategoria/cadastro_categoria_controller.dart';
 
 class CadastroCategoria extends GetView<CadastrocategoriaController> {
@@ -85,7 +85,7 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                 const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () {
-                    controller.createCategoria();
+                    controller.criarCategoria();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF34495E),
@@ -116,7 +116,7 @@ class CadastroCategoria extends GetView<CadastrocategoriaController> {
                               trailing: IconButton(
                                 icon: const Icon(Icons.close),
                                 onPressed: () {
-                                  controller.deleteCategoria(categoria.id!);
+                                  controller.deletarCategoria(categoria.id!);
                                 },
                               ),
                             ),

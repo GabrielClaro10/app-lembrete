@@ -6,6 +6,8 @@ import 'package:lembra_mais/src/modules/login/login_controller.dart';
 import 'package:lembra_mais/src/modules/cadastroUsers/cadastro_users.dart';
 
 class Login extends GetView<LoginController> {
+  const Login({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +111,7 @@ class Login extends GetView<LoginController> {
                                   ? Icons.visibility
                                   : Icons.visibility_off,
                             ),
-                            onPressed: controller.togglePasswordVisibility,
+                            onPressed: controller.visualizarSenha,
                           ),
                         ),
                       )),

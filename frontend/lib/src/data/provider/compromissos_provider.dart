@@ -9,7 +9,7 @@ class CompromissosApiClient {
 
   final box = GetStorage();
 
-  Future<dynamic> getCompromissos() async {
+  Future<dynamic> buscarCompromisso() async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -18,7 +18,7 @@ class CompromissosApiClient {
       }
 
       var response = await http.get(
-        Uri.parse("http://192.168.200.100:8000/api/compromissos"),
+        Uri.parse("http://10.0.2.2:8000/api/compromissos"),
         headers: {"Authorization": "Bearer $token"},
       );
 
@@ -35,7 +35,7 @@ class CompromissosApiClient {
     }
   }
 
-  Future<dynamic> deleteCompromissos(int compromissoId) async {
+  Future<dynamic> deletarCompromisso(int compromissoId) async {
     try {
       String? token = Auth.fromJson(box.read('auth')).accessToken;
 
@@ -44,8 +44,7 @@ class CompromissosApiClient {
       }
 
       var response = await http.delete(
-        Uri.parse(
-            "http://192.168.200.100:8000/api/compromissos/$compromissoId"),
+        Uri.parse("http://10.0.2.2:8000/api/compromissos/$compromissoId"),
         headers: {"Authorization": "Bearer $token"},
       );
 

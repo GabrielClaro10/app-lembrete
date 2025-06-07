@@ -19,22 +19,22 @@ class LembretesController extends GetxController {
 
   @override
   void onInit() {
-    fetchCompromissos();
-    fetchCategorias();
+    buscarCompromisso();
+    buscarCategoria();
     super.onInit();
   }
 
-  void fetchCompromissos() async {
+  void buscarCompromisso() async {
     try {
-      var compromissos = await repository.getCompromissos();
+      var compromissos = await repository.buscarCompromisso();
       listCompromissos.assignAll(compromissos);
-      filtrarCompromissos();
+      filtrarCompromisso();
     } catch (e) {
       Get.snackbar("Erro", "Falha ao buscar compromissos: $e");
     }
   }
 
-  void filtrarCompromissos() {
+  void filtrarCompromisso() {
     String filtro = pesquisaFiltro.text.toLowerCase();
     List<CadastroCompromissos> compromissosFiltrados =
         List.from(listCompromissos);
@@ -83,9 +83,9 @@ class LembretesController extends GetxController {
     listCompromissosFiltrados.assignAll(compromissosFiltrados);
   }
 
-  void fetchCategorias() async {
+  void buscarCategoria() async {
     try {
-      var categorias = await repositoryCat.getCategoria();
+      var categorias = await repositoryCat.buscarCategoria();
       listCategorias.assignAll(categorias);
     } catch (e) {
       Get.snackbar("Erro", "Falha ao buscar categorias: $e");
@@ -101,7 +101,7 @@ class LembretesController extends GetxController {
     );
     if (selectedDate != null) {
       dataInicio.value = selectedDate;
-      filtrarCompromissos();
+      filtrarCompromisso();
     }
   }
 
@@ -113,18 +113,17 @@ class LembretesController extends GetxController {
       lastDate: DateTime(2100),
     );
     if (selectedDate != null) {
-      print("📅 Data de fim selecionada: $selectedDate");
       dataFim.value = selectedDate;
-      filtrarCompromissos();
+      filtrarCompromisso();
     }
   }
 
-  Future<void> deleteCompromisso(int compromissoId) async {
+  Future<void> deletarCompromisso(int compromissoId) async {
     try {
-      await repository.deleteCompromisso(compromissoId);
+      await repository.deletarCompromisso(compromissoId);
       listCompromissos
           .removeWhere((compromisso) => compromisso.id == compromissoId);
-      filtrarCompromissos();
+      filtrarCompromisso();
       Get.snackbar(
         "Sucesso",
         "Compromisso removida com sucesso",

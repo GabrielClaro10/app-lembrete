@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
-import 'package:lembra_mais/src/global/widgets/EmptyList.dart';
-import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
+import 'package:lembra_mais/src/global/widgets/empty_list.dart';
+import 'package:lembra_mais/src/global/widgets/custom_drawer.dart';
 import 'package:lembra_mais/src/modules/lembretes/lembretes_controller.dart';
 
 class Lembretes extends GetView<LembretesController> {
@@ -76,7 +76,7 @@ class Lembretes extends GetView<LembretesController> {
                         ),
                       )),
                   onChanged: (value) {
-                    controller.filtrarCompromissos();
+                    controller.filtrarCompromisso();
                   },
                 ),
               ),
@@ -99,7 +99,7 @@ class Lembretes extends GetView<LembretesController> {
                         );
                         if (selectedStartDate != null) {
                           controller.dataInicio.value = selectedStartDate;
-                          controller.filtrarCompromissos();
+                          controller.filtrarCompromisso();
                         }
                       },
                       child: Container(
@@ -133,7 +133,7 @@ class Lembretes extends GetView<LembretesController> {
                         );
                         if (selectedEndDate != null) {
                           controller.dataFim.value = selectedEndDate;
-                          controller.filtrarCompromissos();
+                          controller.filtrarCompromisso();
                         }
                       },
                       child: Container(
@@ -160,7 +160,7 @@ class Lembretes extends GetView<LembretesController> {
                     onPressed: () {
                       controller.dataInicio.value = null;
                       controller.dataFim.value = null;
-                      controller.filtrarCompromissos();
+                      controller.filtrarCompromisso();
                     },
                     icon: const Icon(Icons.clear, color: Colors.red),
                   ),
@@ -206,15 +206,15 @@ class Lembretes extends GetView<LembretesController> {
               const SizedBox(height: 6),
               Expanded(
                 child: Obx(() {
-                  if (controller.listCategorias.isEmpty) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
                   if (controller.listCompromissos.isEmpty) {
                     return const EmptyList(
                       title: 'Sem compromissos',
                       subtitle: 'Você não possui compromissos cadastrados.',
                       imageAsset: 'assets/images/empty-list.jpeg',
                     );
+                  }
+                  if (controller.listCategorias.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   return ListView.builder(
@@ -253,7 +253,7 @@ class Lembretes extends GetView<LembretesController> {
                           trailing: IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              controller.deleteCompromisso(compromissos.id!);
+                              controller.deletarCompromisso(compromissos.id!);
                             },
                           ),
                           onTap: () {

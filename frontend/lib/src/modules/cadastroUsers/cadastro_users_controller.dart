@@ -18,21 +18,21 @@ class CadastroUsersController extends GetxController {
       TextEditingController();
   late User user;
   final box = GetStorage();
-  var isPasswordVisible = false.obs;
-  var isPasswordConfirmationVisible = false.obs;
+  var senhaVisivel = false.obs;
+  var confirmacaoSenhaVisivel = false.obs;
 
-  void togglePasswordVisibility() {
-    isPasswordVisible.value = !isPasswordVisible.value;
+  void visualizarSenha() {
+    senhaVisivel.value = !senhaVisivel.value;
   }
 
-  void togglepasswordConfirmationVisibility() {
-    isPasswordConfirmationVisible.value = !isPasswordConfirmationVisible.value;
+  void visualizarConfirmarSenha() {
+    confirmacaoSenhaVisivel.value = !confirmacaoSenhaVisivel.value;
   }
 
-  void register() async {
+  void registrar() async {
     if (formKey.currentState!.validate()) {
       try {
-        final Auth authResponse = await repository.register(
+        final Auth authResponse = await repository.registrar(
           emailController.text,
           passwordController.text,
           passwordConfirmationController.text,

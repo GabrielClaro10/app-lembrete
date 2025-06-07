@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
+import 'package:lembra_mais/src/global/widgets/custom_drawer.dart';
 import 'package:lembra_mais/src/modules/detalhesCompromissos/detalhes_compromissos_controller.dart';
 
 class DetalhesCompromissos extends StatelessWidget {

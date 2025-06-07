@@ -16,7 +16,7 @@ class LoginController extends GetxController {
 
   var isPasswordVisible = false.obs;
 
-  void togglePasswordVisibility() {
+  void visualizarSenha() {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
 

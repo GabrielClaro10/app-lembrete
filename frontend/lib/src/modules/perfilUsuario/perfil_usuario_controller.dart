@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,15 +25,27 @@ class PerfilUsuarioController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadUserData();
+    carregarUsuario();
   }
 
-  Future<void> pickImage(ImageSource source) async {
+  Future<void> escolhaImagem(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
     final XFile? pickedFile = await picker.pickImage(source: source);
 
     if (pickedFile != null) {
-      foto.value = pickedFile.path;
+      final file = File(pickedFile.path);
+
+      try {
+        String? fileName = await authRepository.uploadFoto(file);
+        if (fileName != null && fileName.isNotEmpty) {
+          foto.value = fileName;
+        } else {
+          Get.snackbar('Erro', 'Falha ao enviar a imagem');
+        }
+      } catch (e) {
+        print('Erro no upload da imagem: $e');
+        Get.snackbar('Erro', 'Falha ao enviar a imagem: $e');
+      }
     }
   }
 
@@ -46,7 +60,7 @@ class PerfilUsuarioController extends GetxController {
                 leading: const Icon(Icons.photo_library),
                 title: const Text('Galeria'),
                 onTap: () {
-                  pickImage(ImageSource.gallery);
+                  escolhaImagem(ImageSource.gallery);
                   Navigator.of(context).pop();
                 },
               ),
@@ -54,7 +68,7 @@ class PerfilUsuarioController extends GetxController {
                 leading: const Icon(Icons.camera_alt),
                 title: const Text('Câmera'),
                 onTap: () {
-                  pickImage(ImageSource.camera);
+                  escolhaImagem(ImageSource.camera);
                   Navigator.of(context).pop();
                 },
               ),
@@ -65,11 +79,11 @@ class PerfilUsuarioController extends GetxController {
     );
   }
 
-  void loadUserData() async {
+  void carregarUsuario() async {
     try {
       isLoading.value = true;
 
-      var user = await authRepository.getUserDetails();
+      var user = await authRepository.buscarUsuarioDetalhes();
 
       if (user != null) {
         nome.value = user.nome ?? '';
@@ -88,44 +102,39 @@ class PerfilUsuarioController extends GetxController {
     }
   }
 
-  Future<void> updateUserData() async {
+  Future<void> atualizarUsuario() async {
     if (!formKey.currentState!.validate()) return;
 
     isLoading.value = true;
-
     try {
-      var updatedUser = await authRepository.updateUser(
+      var updatedUser = await authRepository.alterarUsuario(
         nomeController.text,
         dataNascimentoController.text,
         foto.value,
         telefoneController.text,
       );
 
-      var user = await authRepository.getUserDetails();
+      nome.value = updatedUser.nome ?? nome.value;
+      telefone.value = updatedUser.telefone ?? telefone.value;
+      dataNascimento.value = updatedUser.dataNascimento ?? dataNascimento.value;
+      foto.value = updatedUser.foto ?? foto.value;
 
-      nome.value = user.nome!;
-      email.value = user.email!;
-      foto.value = user.foto!;
-      telefone.value = user.telefone!;
-      dataNascimento.value = user.dataNascimento!;
-
-      nomeController.text = user.nome!;
-      telefoneController.text = user.telefone!;
-      dataNascimentoController.text = user.dataNascimento!;
+      carregarUsuario();
 
       Get.snackbar(
         "Sucesso",
-        "Dados atualizados com sucesso!",
+        "Perfil do usuário atualizado:",
         colorText: Colors.white,
-        backgroundColor: Colors.green[300],
-        messageText: const Text(
-          "Dados atualizados com sucesso!",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
+        backgroundColor: Colors.green,
       );
-      loadUserData();
     } catch (e) {
-      print("erro $e");
+      print("Erro no update: $e");
+      Get.snackbar(
+        "Erro",
+        "Falha ao atualizar os dados: ${e.toString()}",
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+      );
     } finally {
       isLoading.value = false;
     }

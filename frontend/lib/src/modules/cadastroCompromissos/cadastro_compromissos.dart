@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lembra_mais/src/data/model/cadastro_categoria_model.dart';
-import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
+import 'package:lembra_mais/src/global/widgets/custom_drawer.dart';
 import 'package:lembra_mais/src/modules/cadastroCompromissos/cadastro_compromissos_controller.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -91,7 +91,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                       value: controller.categoriaSelecionada.value,
                       onChanged: (CadastroCategoria? novaCategoria) {
                         if (novaCategoria != null) {
-                          controller.setCatSelecionada(novaCategoria);
+                          controller.setarCategoriaSelecionada(novaCategoria);
                         }
                       },
                       items: controller.listCategorias
@@ -272,7 +272,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                 ),
                 const SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: controller.createCompromissos,
+                  onPressed: controller.criarCompromisso,
                   child: const Text('Cadastrar compromisso'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF34495E),

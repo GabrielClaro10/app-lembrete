@@ -26,9 +26,9 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     DateTime dataAtual = DateTime.now();
-    fetchCategorias();
+    buscarCategoria();
     filtrarCompromissos(dataAtual);
-    fetchCompromissos();
+    buscarCompromisso();
   }
 
   void filtrarCompromissos([DateTime? dataSelecionada]) async {
@@ -36,7 +36,7 @@ class HomeController extends GetxController {
     String dataFormatadaFiltro = DateFormat('dd/MM/yyyy').format(dataFiltro);
 
     try {
-      var compromissos = await repository.getCompromissos();
+      var compromissos = await repository.buscarCompromisso();
       listCompromissos.assignAll(compromissos);
 
       compromissosFiltrados.assignAll(
@@ -60,7 +60,7 @@ class HomeController extends GetxController {
             try {
               DateTime dataA = DateFormat("dd/MM/yyyy HH:mm").parse(a.data!);
               DateTime dataB = DateFormat("dd/MM/yyyy HH:mm").parse(b.data!);
-              return dataB.compareTo(dataA); // Ordenação decrescente
+              return dataB.compareTo(dataA);
             } catch (e) {
               return 0;
             }
@@ -71,19 +71,19 @@ class HomeController extends GetxController {
     }
   }
 
-  void fetchCompromissos() async {
+  void buscarCompromisso() async {
     try {
-      var compromissos = await repository.getCompromissos();
-      listCompromissos.assignAll(compromissos); // Atualiza a lista observável
+      var compromissos = await repository.buscarCompromisso();
+      listCompromissos.assignAll(compromissos);
     } catch (e) {
       print("Erro Falha ao buscar compromissos:");
     }
   }
 
-  void fetchCategorias() async {
+  void buscarCategoria() async {
     try {
-      var categorias = await repositoryCat.getCategoria();
-      listCategorias.assignAll(categorias); // Atualiza a lista de categorias
+      var categorias = await repositoryCat.buscarCategoria();
+      listCategorias.assignAll(categorias);
     } catch (e) {
       print("Erro, Falha ao buscar categorias:");
     }

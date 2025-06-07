@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lembra_mais/src/global/widgets/customDrawer.dart';
+import 'package:lembra_mais/src/global/widgets/custom_drawer.dart';
 
 class Cadastroseguro extends StatelessWidget {
   const Cadastroseguro({super.key});
@@ -134,7 +134,6 @@ class Cadastroseguro extends StatelessWidget {
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {},
-                child: Text('Cadastrar'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF34495E),
                   foregroundColor: Colors.white,
@@ -143,6 +142,7 @@ class Cadastroseguro extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+                child: const Text('Cadastrar'),
               ),
               const SizedBox(height: 20),
               Expanded(

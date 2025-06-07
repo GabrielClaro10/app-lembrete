@@ -7,9 +7,9 @@ class EsqueceuSenhaController extends GetxController {
   final AuthRepository authRepository = AuthRepository();
   final formKey = GlobalKey<FormState>();
 
-  Future<void> sendResetPassword(String email) async {
+  Future<void> enviarRedefinirSenha(String email) async {
     try {
-      final response = await authRepository.resetPassword(email);
+      final response = await authRepository.resetarSenha(email);
       Get.snackbar(
         "Sucesso",
         "Reset enviado com sucesso",

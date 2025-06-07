@@ -8,7 +8,7 @@ class CadastrocompromissosRepository {
   final CompromissosApiClient compromissosApiClient =
       Get.find<CompromissosApiClient>();
 
-  Future<CadastroCompromissos> registerCompromissos(
+  Future<CadastroCompromissos> registrarCompromisso(
     String local,
     String data,
     String descricao,
@@ -17,15 +17,15 @@ class CadastrocompromissosRepository {
     int idUsers,
     int idCategoria,
   ) async {
-    Map<String, dynamic> response = await apiClient.registerCompromissos(
+    Map<String, dynamic> response = await apiClient.registrarCompromisso(
         local, data, descricao, status, obs, idUsers, idCategoria);
 
     return CadastroCompromissos.fromJson(response['data']);
   }
 
-  Future<List<CadastroCompromissos>> getCompromissos() async {
+  Future<List<CadastroCompromissos>> buscarCompromisso() async {
     List<CadastroCompromissos> list = [];
-    var response = await compromissosApiClient.getCompromissos();
+    var response = await compromissosApiClient.buscarCompromisso();
 
     for (var e in response) {
       list.add(CadastroCompromissos.fromJson(e));
@@ -34,7 +34,7 @@ class CadastrocompromissosRepository {
     return list;
   }
 
-  Future<void> deleteCompromisso(int compromissoId) async {
-    await compromissosApiClient.deleteCompromissos(compromissoId);
+  Future<void> deletarCompromisso(int compromissoId) async {
+    await compromissosApiClient.deletarCompromisso(compromissoId);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:lembra_mais/src/data/model/auth_model.dart';
 import 'package:lembra_mais/src/data/model/user_model.dart';
@@ -17,7 +19,7 @@ class AuthRepository {
     return Auth.fromJson(data);
   }
 
-  Future<Auth> register(
+  Future<Auth> registrar(
       String email,
       String password,
       String passwordConfirmation,
@@ -25,7 +27,7 @@ class AuthRepository {
       String dataNascimento,
       String telefone) async {
     try {
-      final Auth authResponse = await apiClient.register(email, password,
+      final Auth authResponse = await apiClient.registrar(email, password,
           passwordConfirmation, nome, dataNascimento, telefone);
 
       if (authResponse.accessToken != null && authResponse.user != null) {
@@ -40,25 +42,34 @@ class AuthRepository {
     }
   }
 
-  Future<User> updateUser(String nome, String dataNascimento, String? foto,
+  Future<User> alterarUsuario(String nome, String dataNascimento, String? foto,
       String? telefone) async {
     final response =
-        await userProvider.updateUser(nome, dataNascimento, foto, telefone);
+        await userProvider.alterarUsuario(nome, dataNascimento, foto, telefone);
     return User.fromJson(response);
   }
 
-  Future<User> getUserDetails() async {
-    var response = await userProvider.getUserDetails();
+  Future<User> buscarUsuarioDetalhes() async {
+    var response = await userProvider.buscarUsuarioDetalhes();
     return User.fromJson(response);
   }
 
-  Future<Map<String, dynamic>> resetPassword(String email) async {
+  Future<Map<String, dynamic>> resetarSenha(String email) async {
     try {
-      final response = await apiClient.resetPassword(email);
+      final response = await apiClient.resetarSenha(email);
       return response;
     } catch (e) {
       print('Erro ao enviar reset password: $e');
       rethrow;
+    }
+  }
+
+  Future<String?> uploadFoto(File file) async {
+    try {
+      return await userProvider.uploadImagemParaServidor(file.path);
+    } catch (e) {
+      print('Erro no uploadFoto: $e');
+      return null;
     }
   }
 }

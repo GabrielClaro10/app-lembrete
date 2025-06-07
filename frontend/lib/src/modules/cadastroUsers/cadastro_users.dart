@@ -203,7 +203,7 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                           },
                           controller: controller.passwordController,
                           obscureText: !controller
-                              .isPasswordVisible.value, // Alterna visibilidade
+                              .senhaVisivel.value, // Alterna visibilidade
                           decoration: InputDecoration(
                             labelText: 'Senha',
                             border: OutlineInputBorder(
@@ -226,11 +226,11 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                             contentPadding: const EdgeInsets.all(16),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                controller.isPasswordVisible.value
+                                controller.senhaVisivel.value
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                               ),
-                              onPressed: controller.togglePasswordVisibility,
+                              onPressed: controller.visualizarSenha,
                             ),
                           ),
                         )),
@@ -248,7 +248,7 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                             return null;
                           },
                           controller: controller.passwordConfirmationController,
-                          obscureText: !controller.isPasswordConfirmationVisible
+                          obscureText: !controller.confirmacaoSenhaVisivel
                               .value, // Alterna visibilidade
                           decoration: InputDecoration(
                             labelText: 'Confirmar senha',
@@ -272,12 +272,11 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                             contentPadding: const EdgeInsets.all(16),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                controller.isPasswordConfirmationVisible.value
+                                controller.confirmacaoSenhaVisivel.value
                                     ? Icons.visibility
                                     : Icons.visibility_off,
                               ),
-                              onPressed: controller
-                                  .togglepasswordConfirmationVisibility,
+                              onPressed: controller.visualizarConfirmarSenha,
                             ),
                           ),
                         )),
@@ -285,9 +284,8 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                   const SizedBox(height: 40),
                   ElevatedButton(
                     onPressed: () {
-                      controller.register();
+                      controller.registrar();
                     },
-                    child: Text('Cadastrar'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF34495E),
                       foregroundColor: Colors.white,
@@ -296,6 +294,7 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
+                    child: const Text('Cadastrar'),
                   ),
                   const SizedBox(height: 20),
                   RichText(

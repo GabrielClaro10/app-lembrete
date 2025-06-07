@@ -95,9 +95,8 @@ class EsqueceuSenha extends GetView<EsqueceuSenhaController> {
                 ElevatedButton(
                   onPressed: () {
                     controller
-                        .sendResetPassword(controller.emailController.text);
+                        .enviarRedefinirSenha(controller.emailController.text);
                   },
-                  child: Text('Enviar Email'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF34495E),
                     foregroundColor: Colors.white,
@@ -106,6 +105,7 @@ class EsqueceuSenha extends GetView<EsqueceuSenhaController> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  child: const Text('Enviar Email'),
                 ),
               ],
             ),

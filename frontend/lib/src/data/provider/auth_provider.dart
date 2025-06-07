@@ -15,7 +15,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/api/login"),
+        Uri.parse("http://10.0.2.2:8000/api/login"),
         body: {"email": email, "password": password},
       );
 
@@ -40,7 +40,7 @@ class AuthApiClient {
     }
   }
 
-  Future<Auth> register(
+  Future<Auth> registrar(
       String email,
       String password,
       String passwordConfirmation,
@@ -49,7 +49,7 @@ class AuthApiClient {
       String telefone) async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/api/register"),
+        Uri.parse("http://10.0.2.2:8000/api/register"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -89,7 +89,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> esqueciSenha(String email) async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/api/esqueci-senha"),
+        Uri.parse("http://10.0.2.2:8000/api/esqueci-senha"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -111,7 +111,7 @@ class AuthApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> registerCompromissos(
+  Future<Map<String, dynamic>> registrarCompromisso(
     String local,
     String data,
     String descricao,
@@ -128,7 +128,7 @@ class AuthApiClient {
       }
 
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/api/compromissos"),
+        Uri.parse("http://10.0.2.2:8000/api/compromissos"),
         headers: {"Authorization": "Bearer $token"},
         body: {
           "local": local,
@@ -153,14 +153,14 @@ class AuthApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> registerCategoria(
+  Future<Map<String, dynamic>> registrarCategoria(
     String nome,
     String status,
     int userId,
   ) async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/api/categoria"),
+        Uri.parse("http://10.0.2.2:8000/api/categoria"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "Accept": "application/json",
@@ -184,10 +184,10 @@ class AuthApiClient {
     }
   }
 
-  Future<Map<String, dynamic>> resetPassword(String email) async {
+  Future<Map<String, dynamic>> resetarSenha(String email) async {
     try {
       final response = await http.post(
-        Uri.parse("http://192.168.200.100:8000/forgot-password"),
+        Uri.parse("http://10.0.2.2:8000/forgot-password"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
