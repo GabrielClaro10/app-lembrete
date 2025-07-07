@@ -51,10 +51,8 @@ class CategoriaController extends Controller
             'user_id' => 'required|int',
         ]);
 
-        // Criação do categoria
         $categoria = Categoria::create($validatedData);
 
-        // Resposta de sucesso
         return response()->json(['message' => 'Categoria criado com sucesso!', 'data' => $categoria], 201);
     }
 
@@ -90,7 +88,6 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validação dos dados
         $validatedData = $request->validate([
             'nome' => 'string',
             'updated_at' => 'string',
@@ -99,7 +96,6 @@ class CategoriaController extends Controller
 
         $categoria = Categoria::findOrFail($id);
 
-        // Atualiza os campos
         $categoria->update($validatedData);
 
         return response()->json(['message' => 'Categoria atualizado com sucesso!', 'data' => $categoria]);
@@ -115,7 +111,6 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::findOrFail($id); 
 
-        // Deleta o compromisso
         $categoria->delete();
 
         return response()->json(['message' => 'Categoria deletado com sucesso!']);

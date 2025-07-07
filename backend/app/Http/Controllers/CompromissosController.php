@@ -41,11 +41,9 @@ class CompromissosController extends Controller {
             'id_categoria' => 'required|int',
         ]);
 
-        // Criação do compromisso
         $compromisso = Compromissos::create($validatedData);
 
 
-        // Resposta de sucesso
         return response()->json(['message' => 'Compromisso criado com sucesso!', 'data' => $compromisso], 201);
     }
 
@@ -58,7 +56,6 @@ class CompromissosController extends Controller {
 
     public function update(Request $request, $id)
     {
-        // Validação dos dados
         $validatedData = $request->validate([
             'local' => 'string',
             'data' => 'string',
@@ -69,7 +66,6 @@ class CompromissosController extends Controller {
 
         $compromissos = Compromissos::findOrFail($id);
 
-        // Atualiza os campos
         $compromissos->update($validatedData);
 
         return response()->json(['message' => 'Compromisso atualizado com sucesso!', 'data' => $compromissos]);
@@ -79,7 +75,6 @@ class CompromissosController extends Controller {
     {
         $compromissos = Compromissos::findOrFail($id); 
 
-        // Deleta o compromisso
         $compromissos->delete();
 
         return response()->json(['message' => 'Compromisso deletado com sucesso!']);

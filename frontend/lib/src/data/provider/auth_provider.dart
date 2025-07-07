@@ -15,7 +15,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/login"),
+        Uri.parse("http://64.181.179.120/api/login"),
         body: {"email": email, "password": password},
       );
 
@@ -49,7 +49,7 @@ class AuthApiClient {
       String telefone) async {
     try {
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/register"),
+        Uri.parse("http://64.181.179.120/api/register"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -89,7 +89,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> esqueciSenha(String email) async {
     try {
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/esqueci-senha"),
+        Uri.parse("http://64.181.179.120/api/esqueci-senha"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
@@ -128,7 +128,7 @@ class AuthApiClient {
       }
 
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/compromissos"),
+        Uri.parse("http://64.181.179.120/api/compromissos"),
         headers: {"Authorization": "Bearer $token"},
         body: {
           "local": local,
@@ -160,7 +160,7 @@ class AuthApiClient {
   ) async {
     try {
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/api/categoria"),
+        Uri.parse("http://64.181.179.120/api/categoria"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "Accept": "application/json",
@@ -187,7 +187,7 @@ class AuthApiClient {
   Future<Map<String, dynamic>> resetarSenha(String email) async {
     try {
       final response = await http.post(
-        Uri.parse("http://10.0.2.2:8000/forgot-password"),
+        Uri.parse("http://64.181.179.120/forgot-password"),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",

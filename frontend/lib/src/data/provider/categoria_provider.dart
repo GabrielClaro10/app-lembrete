@@ -18,7 +18,7 @@ class CategoriaApiClient {
       }
 
       var response = await http.get(
-        Uri.parse("http://10.0.2.2:8000/api/categoria"),
+        Uri.parse("http://64.181.179.120/api/categoria"),
         headers: {"Authorization": "Bearer $token"},
       );
 
@@ -44,12 +44,12 @@ class CategoriaApiClient {
       }
 
       var response = await http.delete(
-        Uri.parse("http://10.0.2.2:8000/api/categoria/$categoriaId"),
+        Uri.parse("http://64.181.179.120/api/categoria/$categoriaId"),
         headers: {"Authorization": "Bearer $token"},
       );
 
       if (response.statusCode == 200) {
-        return jsonDecode(response.body); // Retorna o JSON já convertido
+        return jsonDecode(response.body);
       } else {
         throw Exception(
           'Erro na solicitação: ${response.statusCode}, ${response.body}',

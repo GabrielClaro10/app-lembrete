@@ -60,6 +60,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
+
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+
 
 
 
@@ -72,6 +80,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icon/icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

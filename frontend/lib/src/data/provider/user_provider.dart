@@ -34,7 +34,7 @@ class UserProvider {
       }
 
       final response = await http.get(
-        Uri.parse("http://10.0.2.2:8000/api/user/$userId"),
+        Uri.parse("http://64.181.179.120/api/user/$userId"),
         headers: {
           "Authorization": "Bearer $token",
           "Accept": "application/json",
@@ -72,7 +72,7 @@ class UserProvider {
         throw Exception("Token ou ID do usuário não encontrado.");
       }
 
-      var uri = Uri.parse("http://10.0.2.2:8000/api/user/$userId");
+      var uri = Uri.parse("http://64.181.179.120/api/user/$userId");
 
       var response = await http.post(
         uri,
@@ -113,7 +113,7 @@ class UserProvider {
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://10.0.2.2:8000/api/upload'),
+        Uri.parse('http://64.181.179.120/api/upload'),
       );
       request.headers['Authorization'] = 'Bearer $token';
       request.headers['Accept'] = 'application/json';

@@ -175,8 +175,7 @@ class _HomeState extends State<Home> {
 
               return ListView.builder(
                 shrinkWrap: true,
-                physics:
-                    const NeverScrollableScrollPhysics(), // Evita conflito de scroll
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.compromissosFiltrados.length,
                 itemBuilder: (context, index) {
                   final compromisso = controller.compromissosFiltrados[index];
@@ -201,8 +200,7 @@ class _HomeState extends State<Home> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(compromisso.data
-                              .toString()), // Formate como preferir
+                          Text(compromisso.data.toString()),
                           const SizedBox(height: 4),
                           Text(compromisso.local ?? "Sem local"),
                         ],

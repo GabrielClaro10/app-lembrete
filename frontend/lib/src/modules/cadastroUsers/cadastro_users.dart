@@ -202,8 +202,7 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                             return null;
                           },
                           controller: controller.passwordController,
-                          obscureText: !controller
-                              .senhaVisivel.value, // Alterna visibilidade
+                          obscureText: !controller.senhaVisivel.value,
                           decoration: InputDecoration(
                             labelText: 'Senha',
                             border: OutlineInputBorder(
@@ -248,8 +247,8 @@ class CadastrarUser extends GetView<CadastroUsersController> {
                             return null;
                           },
                           controller: controller.passwordConfirmationController,
-                          obscureText: !controller.confirmacaoSenhaVisivel
-                              .value, // Alterna visibilidade
+                          obscureText:
+                              !controller.confirmacaoSenhaVisivel.value,
                           decoration: InputDecoration(
                             labelText: 'Confirmar senha',
                             border: OutlineInputBorder(
