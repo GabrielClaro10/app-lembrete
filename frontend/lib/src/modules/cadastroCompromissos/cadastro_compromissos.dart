@@ -36,9 +36,9 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
           ),
         ],
       ),
-      endDrawer: CustomDrawer(),
-      backgroundColor: const Color(0xFF34495E),
-      body: Center(
+      endDrawer: const CustomDrawer(),
+      backgroundColor: const Color(0xfff1f4f8),
+      body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(24.0),
           decoration: const BoxDecoration(
@@ -153,7 +153,7 @@ class Cadastrocompromissos extends GetView<CadastroCompromissosController> {
                         return 'Campo obrigatório.';
                       }
                       if (value.length != 16) {
-                        return 'Preencha da data e horário.';
+                        return 'Preencha a data e horário.';
                       }
                       return null;
                     },

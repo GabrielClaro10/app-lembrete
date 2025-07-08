@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lembra_mais/src/data/provider/user_provider.dart';
 
-class CustomDrawer extends StatelessWidget {
-  CustomDrawer({super.key});
+class CustomDrawer extends StatefulWidget {
+  const CustomDrawer({super.key});
 
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   final box = GetStorage();
+  String nomeUsuario = 'Carregando...';
+
+  @override
+  void initState() {
+    super.initState();
+    carregarNome();
+  }
+
+  void carregarNome() async {
+    try {
+      final user = await UserProvider().buscarUsuarioDetalhes();
+      setState(() {
+        nomeUsuario = user['nome'] ?? 'Usuário';
+        box.write('nome', nomeUsuario); // Se quiser salvar no GetStorage
+      });
+    } catch (e) {
+      setState(() {
+        nomeUsuario = 'Erro ao carregar';
+      });
+    }
+  }
 
   void boxclear() {
     box.erase();
@@ -21,16 +48,23 @@ class CustomDrawer extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 20),
-              const Row(
+              Row(
                 children: [
-                  SizedBox(width: 20),
-                  CircleAvatar(
+                  const SizedBox(width: 20),
+                  const CircleAvatar(
                     radius: 30,
                     backgroundImage: NetworkImage(
-                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+                      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                    ),
                   ),
-                  SizedBox(width: 20),
-                  Text('Gabriel Claro', style: TextStyle(fontSize: 20)),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Text(
+                      nomeUsuario,
+                      style: const TextStyle(fontSize: 20),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),

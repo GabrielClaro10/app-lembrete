@@ -78,9 +78,6 @@ class Login extends GetView<LoginController> {
                           if (value!.isEmpty) {
                             return 'Campo obrigatório.';
                           }
-                          if (value.length < 6) {
-                            return 'Campo deve conter no mínimo 6 caracteres.';
-                          }
                           return null;
                         },
                         controller: controller.password,
