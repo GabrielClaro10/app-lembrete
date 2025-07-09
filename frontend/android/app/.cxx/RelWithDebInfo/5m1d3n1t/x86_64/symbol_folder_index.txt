@@ -1,1 +1,0 @@
-C:\Users\Gabriel\app-lembrete\frontend\build\app\intermediates\cxx\RelWithDebInfo\5m1d3n1t\obj\x86_64
