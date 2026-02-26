@@ -1,4 +1,19 @@
-App de Lembretes
+App de Lembretes 
 
+ 
 
-Este é um aplicativo de lembretes criado para facilitar a organização pessoal dos usuários, permitindo o agendamento e visualização de compromissos futuros. O app inclui diversas funcionalidades como login, cadastro de compromissos e gerenciamento de lembretes com alarmes personalizados.
+Aplicativo mobile desenvolvido como meu primeiro projeto acadêmico na faculdade, com o objetivo de auxiliar usuários na organização de compromissos e tarefas do dia a dia. 
+
+ 
+
+Funcionalidades 
+ 
+- ✅ Cadastro e login de usuários 
+
+- ✅ Criação de compromissos 
+
+- ✅ Edição e exclusão de lembretes 
+
+- ✅ Listagem de compromissos futuros 
+
+- ✅ Validação de dados no cadastro
